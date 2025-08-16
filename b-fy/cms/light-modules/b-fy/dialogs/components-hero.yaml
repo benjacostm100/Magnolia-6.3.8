@@ -1,0 +1,21 @@
+label: Hero
+form:
+  tabs:
+    main:
+      label: Content
+      fields:
+        tagline:
+          $type: textField
+          label: Tagline
+          i18n: true
+        title:
+          $type: textField
+          label: Title
+          required: true
+          i18n: true
+        description:
+          $type: textField
+          label: Description
+          rows: 3
+          i18n: true
+actions: !include /b-fy/dialogs/common-actions.yaml

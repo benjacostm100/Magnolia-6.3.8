@@ -1,0 +1,12 @@
+label: Privacy policy
+form:
+  properties:
+    content:
+      $type: richTextField
+      label: Content
+      images: true
+      source: true
+      tables: true
+      height: 280
+      required: true
+      i18n: true

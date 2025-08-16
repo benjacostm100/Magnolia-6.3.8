@@ -1,0 +1,31 @@
+!content-type:industry
+name: industries
+label: Industries
+subApps:
+  detail:
+    label: Properties
+    form:
+      properties:
+        summary:
+          rows: 4
+        description:
+          rows: 5
+        details:
+          field:
+            properties:
+              description:
+                rows: 3
+        threats:
+          field:
+            properties:
+              description:
+                rows: 5
+        features:
+          field:
+            properties:
+              description:
+                rows: 3
+        product:
+          properties:
+            description:
+              rows: 8

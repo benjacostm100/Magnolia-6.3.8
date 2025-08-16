@@ -1,0 +1,5 @@
+title: Partners
+dialog: b-fy:partners
+renderType: freemarker
+templateScript: /b-fy/templates/pages/partners.ftl
+description: Partners page migrated with default content

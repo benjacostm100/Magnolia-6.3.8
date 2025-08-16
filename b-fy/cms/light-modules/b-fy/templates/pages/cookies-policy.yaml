@@ -1,0 +1,5 @@
+title: Cookies Policy
+renderType: freemarker
+templateScript: /b-fy/templates/pages/cookies-policy.ftl
+description: Cookies Policy page migrated from Astro with fallback text
+dialog: b-fy:cookies-policy

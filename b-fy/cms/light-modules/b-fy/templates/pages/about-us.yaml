@@ -1,0 +1,5 @@
+title: About Us
+dialog: b-fy:about-us
+renderType: freemarker
+templateScript: /b-fy/templates/pages/about-us.ftl
+description: About Us page migrated from Astro with default content
