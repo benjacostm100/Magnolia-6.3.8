@@ -75,9 +75,48 @@ form:
               label: Description
               rows: 3
               i18n: true
+            items:
+              $type: jcrMultiField
+              label: Industry Items
+              field:
+                $type: compositeField
+                label: Industry
+                properties:
+                  name:
+                    $type: textField
+                    label: Name
+                    i18n: true
+                  summary:
+                    $type: textField
+                    label: Summary
+                    rows: 5
+                    i18n: true
+                  link:
+                    $type: textField
+                    label: Link (URL or anchor)
+                  thumbnail:
+                    $type: damLinkField
+                    label: Thumbnail Image
     testimonials:
       label: Testimonials
       fields:
+        testimonialsConfig:
+          $type: compositeField
+          label: Section Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            description:
+              $type: textField
+              label: Description
+              rows: 5
+              i18n: true
         testimonials:
           $type: jcrMultiField
           label: Properties
@@ -86,9 +125,9 @@ form:
             label: Client
             properties:
               testimonial:
-                $type: richTextField
+                $type: textField
                 label: Testimonial
-                height: 200
+                rows: 8
                 i18n: true
               name:
                 $type: textField
