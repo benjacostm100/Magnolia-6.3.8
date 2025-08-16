@@ -213,19 +213,8 @@
       </div>
     </section>
 
-    <#-- CTA (reuse from home fallback style) -->
-    <section class="relative px-5 sm:px-10 lg:px-13 pt-24 pb-20 text-center text-white text-lg xl:text-xl overflow-hidden">
-      <div class="relative z-10 max-w-5xl mx-auto">
-        <p class="uppercase">What are you waiting for?</p>
-        <h2 class="mt-5 mb-8 font-bold text-5xl">Experience the new era of authentication.</h2>
-        <p class="max-w-2xl mb-16 mx-auto leading-snug">Discover how B-FY can transform your company’s security. Request a demo or contact us for more information.</p>
-        <div class="flex flex-col gap-6 sm:flex-row sm:justify-center">
-          <a class="py-2.5 px-5 rounded bg-white text-black transition-colors hover:text-red-800" href="/contact">Get a demo</a>
-          <a class="py-2.5 px-5 rounded ring ring-inset transition-colors hover:text-orange-600" href="/contact">Contact us</a>
-        </div>
-      </div>
-      <span class="absolute inset-0 -z-10 bg-black/55"></span>
-    </section>
+  <#import "/b-fy/templates/components/cta.ftl" as cmp />
+  <@cmp.callToAction tagline="What are you waiting for?" />
   </main>
   <#import "/b-fy/templates/components/footer.ftl" as layout />
   <@layout.siteFooter />

@@ -93,16 +93,6 @@
             ]
         } />
 
-    <#-- Fallback CTA -->
-        <#assign fallbackCta = {
-            "tagline": "Experience the new era of authentication.",
-            "title": "Discover how B-FY can transform your company’s security.",
-            "description": "Request a demo or contact us for more information.",
-            "primaryButtonLabel": "Get a demo",
-            "primaryButtonLink": "/contact",
-            "secondaryButtonLabel": "Contact us",
-            "secondaryButtonLink": "/contact"
-        } />
 
     <#-- Fallback Newsletter -->
         <#assign fallbackNewsletter = {
@@ -323,50 +313,16 @@
         </div>
     </section>
 
-    <#-- CALL TO ACTION -->
-        <#assign cta = {} />
-        <#if content.cta??>
-            <#assign _ctaChildren = (content.cta?children)![] />
-            <#if _ctaChildren?size gt 0>
-                <#assign cta = _ctaChildren[0] />
-            </#if>
-        </#if>
-    <#if cta??>
-    <section class="relative px-5 sm:px-10 lg:px-13 pt-24 pb-20 text-center text-white text-lg xl:text-xl overflow-hidden">
-        <div class="relative z-10 max-w-5xl mx-auto">
-            <p class="uppercase">${cta.tagline!}</p>
-            <h2 class="mt-5 mb-8 font-bold text-5xl">${cta.title!}</h2>
-            <p class="max-w-2xl mb-16 mx-auto leading-snug">${cta.description!}</p>
-            <div class="flex flex-col gap-6 sm:flex-row sm:justify-center">
-                <#if cta.primaryButtonLabel?has_content>
-                    <a class="py-2.5 px-5 rounded bg-white text-black transition-colors hover:text-red-800" href="${cta.primaryButtonLink!'#'}">${cta.primaryButtonLabel}</a>
-                </#if>
-                <#if cta.secondaryButtonLabel?has_content>
-                    <a class="py-2.5 px-5 rounded ring ring-inset transition-colors hover:text-orange-600" href="${cta.secondaryButtonLink!'#'}">${cta.secondaryButtonLabel}</a>
-                </#if>
-            </div>
-        </div>
-        <#-- Background image -->
-        <#if cta.background??>
-            <img src="${damfn.link(cta.background)}" alt="" class="absolute inset-0 -z-10 w-full h-full object-cover" />
-        </#if>
-        <span class="absolute inset-0 -z-10 bg-black/55"></span>
-    </section>
-        </#if>
-        <#if !cta??>
-            <section class="relative px-5 sm:px-10 lg:px-13 pt-24 pb-20 text-center text-white text-lg xl:text-xl overflow-hidden">
-                <div class="relative z-10 max-w-5xl mx-auto">
-                        <p class="uppercase">${fallbackCta.tagline}</p>
-                        <h2 class="mt-5 mb-8 font-bold text-5xl">${fallbackCta.title}</h2>
-                        <p class="max-w-2xl mb-16 mx-auto leading-snug">${fallbackCta.description}</p>
-                        <div class="flex flex-col gap-6 sm:flex-row sm:justify-center">
-                            <a class="py-2.5 px-5 rounded bg-white text-black transition-colors hover:text-red-800" href="${fallbackCta.primaryButtonLink}">${fallbackCta.primaryButtonLabel}</a>
-                            <a class="py-2.5 px-5 rounded ring ring-inset transition-colors hover:text-orange-600" href="${fallbackCta.secondaryButtonLink}">${fallbackCta.secondaryButtonLabel}</a>
-                        </div>
-                </div>
-                <span class="absolute inset-0 -z-10 bg-black/55"></span>
-            </section>
-        </#if>
+    <#-- CALL TO ACTION (universal component) -->
+    <#import "/b-fy/templates/components/cta.ftl" as cmp />
+    <@cmp.callToAction 
+        tagline="Experience the new era of authentication." 
+        title="Discover how B-FY can transform your company’s security." 
+        description="Request a demo or contact us for more information." 
+        primaryButtonLabel="Get a demo" 
+        primaryButtonLink="/contact" 
+        secondaryButtonLabel="Contact us" 
+        secondaryButtonLink="/contact" />
 
         <#-- NEWSLETTER -->
             <#assign newsletter = {} />

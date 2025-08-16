@@ -107,20 +107,13 @@
       <#if vChildren?size gt 0><#assign videoNode = vChildren[0] /></#if>
     </#if>
 
-    <#-- HERO -->
-    <section class="px-6 pt-32 pb-16 bg-gradient-to-br from-white to-neutral-100">
+  
+    <#-- Anchor navigation (links to sections) -->
+    <section class="px-6 py-8 bg-neutral-50">
       <div class="max-w-screen-xl mx-auto">
-  <h1 class="font-bold text-4xl leading-tight max-w-4xl">${content.title!fbHeroTitle}</h1>
-  <p class="mt-8 text-lg max-w-2xl leading-relaxed">${content.description!fbHeroDesc}</p>
-        <#-- Optional links nav -->
-        <nav class="mt-10 flex flex-wrap gap-3 text-sm">
-          <#assign linksNav = fbLinksNav />
-          <#if content.linksNav?has_content>
-            <#assign lnChildren = content.linksNav?children />
-            <#if lnChildren?size gt 0><#assign linksNav = lnChildren /></#if>
-          </#if>
-          <#list linksNav as ln>
-            <a href="${'#' + (ln.anchor!ln["anchor"])!}" class="px-4 py-2 rounded border bg-white hover:text-orange-600">${ln.label!ln["label"]!}</a>
+        <nav class="flex flex-wrap gap-4">
+          <#list fbLinksNav as ln>
+            <a href="${'#' + (ln.anchor!ln['anchor'])!}" class="px-4 py-2 rounded border bg-white hover:text-orange-600">${ln.label!ln['label']!}</a>
           </#list>
         </nav>
       </div>
@@ -260,19 +253,8 @@
       </div>
     </section>
 
-    <#-- CTA -->
-    <section class="relative px-5 sm:px-10 lg:px-13 pt-24 pb-20 text-center text-white text-lg xl:text-xl overflow-hidden">
-      <div class="relative z-10 max-w-5xl mx-auto">
-        <p class="uppercase">Want to know more?</p>
-        <h2 class="mt-5 mb-8 font-bold text-5xl">Experience the new era of authentication.</h2>
-        <p class="max-w-2xl mb-16 mx-auto leading-snug">Discover how B-FY can transform your company’s security. Request a demo or contact us for more information.</p>
-        <div class="flex flex-col gap-6 sm:flex-row sm:justify-center">
-          <a class="py-2.5 px-5 rounded bg-white text-black transition-colors hover:text-red-800" href="/contact">Get a demo</a>
-          <a class="py-2.5 px-5 rounded ring ring-inset transition-colors hover:text-orange-600" href="/contact">Contact us</a>
-        </div>
-      </div>
-      <span class="absolute inset-0 -z-10 bg-black/55"></span>
-    </section>
+  <#import "/b-fy/templates/components/cta.ftl" as cmp />
+  <@cmp.callToAction tagline="Want to know more?" />
   </main>
   <#import "/b-fy/templates/components/footer.ftl" as layout />
   <@layout.siteFooter />
