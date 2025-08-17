@@ -1,4 +1,25 @@
 <#-- Universal Call To Action component -->
+
+<#-- Helper functions moved to top-level (can't nest macro/function definitions) -->
+<#function webResourcePath path>
+  <#if path?starts_with("/")>
+    <#return ctx.contextPath + "/.resources/b-fy/webresources" + path />
+  <#else>
+    <#return ctx.contextPath + "/.resources/b-fy/webresources/" + path />
+  </#if>
+</#function>
+
+<#function damLinkByPath path>
+  <#attempt>
+    <#local damNode = cmsfn.contentByPath(path, "dam")!>
+    <#if damNode?? && damNode?has_content>
+      <#return damfn.link(damNode) />
+    </#if>
+  <#recover>
+  </#attempt>
+  <#return "" />
+</#function>
+
 <#macro callToAction 
     tagline="" 
     title="Experience the new era of authentication." 
@@ -57,17 +78,33 @@
 
   <#-- Background resolution precedence: authored node background > backgroundNode param > page-level property (ctaBackground) > default asset -->
   <#assign _bg = '' />
+  <#-- Background image resolution with robust DAM handling (uses top-level helper functions) -->
+
+  <#assign _bg = "" />
+  <#assign defaultDamCtaPath = "/images/b-fy-innovative-secure-alternative-meet-aepd-demands.webp" />
+  
+  <#-- Try content-specific background -->
   <#if ctaNode.background?? && (damfn??)>
-    <#attempt><#assign _bg = damfn.link(ctaNode.background) /><#recover><#assign _bg = '' /></#attempt>
+    <#attempt><#assign _bg = damfn.link(ctaNode.background) /><#recover></#attempt>
   </#if>
   <#if !_bg?has_content && backgroundNode?? && (damfn??)>
-    <#attempt><#assign _bg = damfn.link(backgroundNode) /><#recover><#assign _bg = '' /></#attempt>
+    <#attempt><#assign _bg = damfn.link(backgroundNode) /><#recover></#attempt>
   </#if>
   <#if !_bg?has_content && content.ctaBackground?? && (damfn??)>
-    <#attempt><#assign _bg = damfn.link(content.ctaBackground) /><#recover><#assign _bg = '' /></#attempt>
+    <#attempt><#assign _bg = damfn.link(content.ctaBackground) /><#recover></#attempt>
   </#if>
+  
+  <#-- Try default DAM path -->
   <#if !_bg?has_content>
-    <#assign _bg = ctx.contextPath + '/.resources/b-fy/webresources/images/call-to-action.webp' />
+    <#assign damCtaLink = damLinkByPath(defaultDamCtaPath) />
+    <#if damCtaLink?has_content>
+      <#assign _bg = damCtaLink />
+    </#if>
+  </#if>
+  
+  <#-- Final fallback to webresources -->
+  <#if !_bg?has_content>
+    <#assign _bg = webResourcePath("/images/call-to-action.webp") />
   </#if>
 
   <section class="uni-cta" aria-label="Call to action">

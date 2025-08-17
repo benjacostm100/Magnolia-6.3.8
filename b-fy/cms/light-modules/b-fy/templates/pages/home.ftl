@@ -14,10 +14,23 @@
             // Descomenta para pruebas rápidas si no ves estilos:
             // document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.10/dist/tailwind.min.css" />');
         </script>
+        <style>
+            /* Scoped minimal enhancements */
+            .gradient-text{background:linear-gradient(90deg,#f97316,#4f46e5);-webkit-background-clip:text;color:transparent}
+            .card{box-shadow:0 4px 12px -2px rgba(0,0,0,.08);transition:.25s}
+            .card:hover{transform:translateY(-4px);box-shadow:0 8px 20px -4px rgba(0,0,0,.12)}
+        </style>
 </head>
 <body class="font-sans antialiased text-neutral-900">
 <#-- Navegación reutilizable -->
 <#import "/b-fy/templates/components/nav.ftl" as ui>
+<#-- Updated component imports pointing to grouped folder (optional future use) -->
+<#import "/b-fy/templates/components/home/home-hero.ftl" as heroCmp>
+<#import "/b-fy/templates/components/home/home-platform.ftl" as platformCmp>
+<#import "/b-fy/templates/components/home/home-industries.ftl" as industriesCmp>
+<#import "/b-fy/templates/components/home/home-testimonials.ftl" as testimonialsCmp>
+<#import "/b-fy/templates/components/home/home-partners.ftl" as partnersCmp>
+<#import "/b-fy/templates/components/home/home-newsletter.ftl" as newsletterCmp>
 <@ui.nav currentPage="home" />
 
 <main style="margin-top:70px;">
@@ -142,26 +155,25 @@
                                 <#return "" />
                         </#function>
 
-            <#-- Rutas DAM sugeridas para defaults (sube estos assets al DAM en /b-fy-default/...) -->
-            <#assign defaultDamHeroPath = "/b-fy-default/hero" />
+            <#-- Real DAM paths using existing assets -->
+            <#assign defaultDamHeroPath = "/images/b-fys-global-launch-identity-week-amsterdam.webp" />
             <#assign damHeroLink = damLinkByPath(defaultDamHeroPath) />
-    <#import "/b-fy/templates/components/home-hero.ftl" as hero />
-    <@hero.homeHero />
+    <@heroCmp.homeHero />
 
     <#-- PLATFORM SECTION extracted to component for Astro parity -->
-    <#import "/b-fy/templates/components/home-platform.ftl" as platformCmp />
+    <#-- Removed outdated import to old path; using /home/home-platform.ftl already imported at top -->
     <@platformCmp.homePlatform />
 
     <#-- INDUSTRIES SECTION extracted to component -->
-    <#import "/b-fy/templates/components/home-industries.ftl" as industriesCmp />
+    <#-- Removed outdated import to old path; using /home/home-industries.ftl already imported at top -->
     <@industriesCmp.homeIndustries />
 
     <#-- TESTIMONIALS SECTION extracted to component -->
-    <#import "/b-fy/templates/components/home-testimonials.ftl" as testimonialsCmp />
+    <#-- Removed outdated import to old path; using /home/home-testimonials.ftl already imported at top -->
     <@testimonialsCmp.homeTestimonials />
 
         <#-- PARTNERS SECTION extracted to component -->
-        <#import "/b-fy/templates/components/home-partners.ftl" as partnersCmp />
+    <#-- Removed outdated import to old path; using /home/home-partners.ftl already imported at top -->
         <@partnersCmp.homePartners />
 
     <#-- CALL TO ACTION (universal component) -->
@@ -176,7 +188,7 @@
         secondaryLink="/contact" />
 
     <#-- NEWSLETTER COMPONENT (Astro parity) -->
-    <#import "/b-fy/templates/components/home-newsletter.ftl" as newsletterCmp />
+    <#-- Removed outdated import to old path; using /home/home-newsletter.ftl already imported at top -->
     <@newsletterCmp.homeNewsletter />
 
     <#-- CERTIFICATIONS removed per request -->

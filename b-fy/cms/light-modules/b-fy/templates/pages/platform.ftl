@@ -6,257 +6,190 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="${ctx.contextPath}/.resources/b-fy/webresources/favicon.png" />
   <link rel="stylesheet" href="${ctx.contextPath}/.resources/b-fy/webresources/styles.css" />
+  <style>
+    /* Platform page styles matching Astro exactly */
+    .section-title{background:linear-gradient(90deg,#4f46e5,#f97316);-webkit-background-clip:text;color:transparent}
+    .tile{position:relative;overflow:hidden;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem;transition:.25s;backdrop-filter:blur(4px)}
+    .tile:hover{box-shadow:0 6px 18px -4px rgba(0,0,0,.15);transform:translateY(-4px)}
+    .comparison-table th{font-size:.75rem;letter-spacing:.05em}
+    .badge{display:inline-block;padding:.35rem .65rem;border-radius:9999px;font-size:.625rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;background:#eef2ff;color:#4338ca}
+    
+    /* Additional utility classes for exact Astro parity */
+    .size-15 { width: 3.75rem; height: 3.75rem; }
+    .h-17 { height: 4.25rem; }
+    .w-3\/4 { width: 75%; }
+    .gap-15 { gap: 3.75rem; }
+    .mb-26 { margin-bottom: 6.5rem; }
+    .mt-18 { margin-top: 4.5rem; }
+    .pb-15 { padding-bottom: 3.75rem; }
+    .py-15 { padding-top: 3.75rem; padding-bottom: 3.75rem; }
+    .my-26 { margin-top: 6.5rem; margin-bottom: 6.5rem; }
+    .max-w-108 { max-width: 27rem; }
+    .max-w-240 { max-width: 60rem; }
+    .xl\:text-5xl { font-size: 3rem; line-height: 1; }
+    @media (min-width: 1280px) { .xl\:text-5xl { font-size: 3rem; line-height: 1; } }
+    .text-xl\/tight { font-size: 1.25rem; line-height: 1.25; }
+    .text-xl\/snug { font-size: 1.25rem; line-height: 1.375; }
+    .leading-snug { line-height: 1.375; }
+    .text-balance { text-wrap: balance; }
+    .text-pretty { text-wrap: pretty; }
+    .not-last\:border-b:not(:last-child) { border-bottom-width: 1px; }
+    .group:hover .group-hover\:bg-orange-600 { background-color: #ea580c; }
+    .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    .duration-75 { transition-duration: 75ms; }
+    .hover\:bg-red-800:hover { background-color: #991b1b; }
+    .hover\:text-orange-600:hover { color: #ea580c; }
+    .-z-1 { z-index: -1; }
+    .bg-linear-\(--color-neutral-100\) { background: linear-gradient(180deg, var(--color-neutral-100, #f5f5f5) 0%, transparent 100%); }
+    .bg-size-\[auto_60\%\] { background-size: auto 60%; }
+    .max-w-6xl\! { max-width: 72rem !important; }
+    
+    /* Grid and responsive utilities */
+    .md\:grid-cols-\[9fr_8fr\] { grid-template-columns: 9fr 8fr; }
+    .md\:grid-cols-\[8fr_9fr\] { grid-template-columns: 8fr 9fr; }
+    @media (min-width: 768px) {
+      .md\:grid-cols-\[9fr_8fr\] { grid-template-columns: 9fr 8fr; }
+      .md\:grid-cols-\[8fr_9fr\] { grid-template-columns: 8fr 9fr; }
+      .md\:row-start-1 { grid-row-start: 1; }
+      .md\:ml-12 { margin-left: 3rem; }
+      .md\:mr-12 { margin-right: 3rem; }
+      .md\:text-right { text-align: right; }
+      .md\:items-center { align-items: center; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .md\:mb-32 { margin-bottom: 8rem; }
+    }
+    
+    /* Layout specific */
+    .gap-y-10 { row-gap: 2.5rem; }
+    .pl-\[1em\] { padding-left: 1em; }
+    .marker\:font-bold ::marker { font-weight: 700; }
+    .marker\:text-orange-600 ::marker { color: #ea580c; }
+    .list-decimal { list-style-type: decimal; }
+    .\*\:p-7 > * { padding: 1.75rem; }
+    .\*\:py-3 > * { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .\*\:px-5 > * { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .lg\:\*\:px-7 > * { padding-left: 1.75rem; padding-right: 1.75rem; }
+    @media (min-width: 1024px) {
+      .lg\:\*\:px-7 > * { padding-left: 1.75rem; padding-right: 1.75rem; }
+      .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lg\:text-xl\/tight { font-size: 1.25rem; line-height: 1.25; }
+      .lg\:text-lg { font-size: 1.125rem; }
+      .lg\:gap-x-24 { column-gap: 6rem; }
+      .lg\:px-13 { padding-left: 3.25rem; padding-right: 3.25rem; }
+    }
+  </style>
 </head>
 <body class="font-sans antialiased text-neutral-900">
+
+<#-- New grouped component imports -->
+<#-- Modular imports for parity macros -->
+<#import "/b-fy/templates/components/platform/platform-hero.ftl" as hero>
+<#import "/b-fy/templates/components/platform/platform-features.ftl" as features>
+<#import "/b-fy/templates/components/platform/platform-auth-process.ftl" as process>
+<#import "/b-fy/templates/components/platform/platform-table.ftl" as table>
+<#import "/b-fy/templates/components/platform/platform-links.ftl" as links>
+<#import "/b-fy/templates/components/platform/platform-video.ftl" as video>
+<#import "/b-fy/templates/components/platform/platform-details.ftl" as details>
+<#import "/b-fy/templates/components/platform/platform-customer.ftl" as customer>
+
+<#-- HELPERS -->
+<#function firstChild nodeName>
+  <#if (content[nodeName])??>
+    <#assign ch = (content[nodeName]?children)![] />
+    <#if ch?size gt 0><#return ch[0] /></#if>
+  </#if>
+  <#return {} />
+</#function>
+
+<#-- FALLBACK DATA FROM ASTRO TEXT -->
+<#assign fbHeroTitle = "A unique authentication platform" />
+<#assign fbHeroDesc = "B-FY authenticates people, certifying the truth of their identity, through a simple and easy-to-use design, integrated with online applications. With B-FY, there are no credentials that can be stolen or forged." />
+
+<#assign fbFeatureBlocks = [
+  {"title":"Prevention of malicious AI and phishing attacks","description":"It blocks all malicious generative AI attacks, ensuring access only to legitimate websites and access points."},
+  {"title":"Protection against account takeover","description":"Each transaction is dynamically verified to neutralize cyberattacks and protect users. OpenID certified, simplifying SSO and identity management."},
+  {"title":"Zero Trust model with OpenID certification","description":"Eliminates reliance on central databases, reducing breach risk and preventing ATO attacks."}
+] />
+
+<#assign fbTabs = [
+  "Customer authentication",
+  "Employee authentication", 
+  "User-controlled biometrics",
+  "Effective against ATO, AI-driven fraud and phishing",
+  "Compliance",
+  "Decentralized authentication"
+] />
+
+<#assign fbComparisonHeaders = ["Traditional 2FA (SMS, OTP, Apps)","Passwords","Passwordless by design","Decentralized security","Fraud and AI attack prevention","Frictionless user experience","Protection against ATO","User transparency","Easy integration"] />
+
+<#assign fbComparisonMatrix = [
+  {"capability":"Passwordless by design","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
+  {"capability":"Decentralized (no shared secrets)","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
+  {"capability":"Prevents phishing / AI spoofing","legacy2fa":"△","passwords":"✕","bfy":"✔"},
+  {"capability":"Blocks ATO (account takeover)","legacy2fa":"△","passwords":"✕","bfy":"✔"},
+  {"capability":"Eliminates credential reuse","legacy2fa":"△","passwords":"✕","bfy":"✔"},
+  {"capability":"Frictionless UX","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
+  {"capability":"Open standards (OIDC)","legacy2fa":"△","passwords":"✕","bfy":"✔"},
+  {"capability":"No OTP fatigue / SIM swap risk","legacy2fa":"✕","passwords":"✕","bfy":"✔"}
+] />
+
+<#assign fbProcessTitle = "Simple and frictionless authentication" />
+<#assign fbProcessIntro = "A smarter and safer way to authenticate:" />
+<#assign fbProcessSteps = [
+  {"title":"The user scans the B‑FY QR code at an online or physical access point."},
+  {"title":"Biometric verification is performed through the institution's mobile app (with B‑FY libraries integrated)."},
+  {"title":"B‑FY grants direct access to the user, not just their credentials."}
+] />
+
+<#assign fbIntegrationTitle = "How is B-FY integrated?" />
+<#assign fbIntegrationParagraphs = [
+  "B-FY Platform offers a well-documented API/OpenID that allows companies to quickly integrate its authentication technology into their platforms (web, mobile, or physical access points).",
+  "No additional hardware - Since B-FY leverages existing smartphone biometric capabilities, companies don't need to invest in specialized hardware or readers.",
+  "Omnichannel compatibility - B-FY's solution works across multiple platforms and channels, ensuring companies can integrate it into websites, mobile apps, and even physical environments.",
+  "Fast deployment and scalability - Whether for a startup or a large enterprise, B-FY's architecture allows fast and scalable deployment for millions of users without disrupting existing workflows."
+] />
+
+<#assign fbBenefits = [
+  {"title":"Be your own identity authority","description":"Become your own Identity Provider and manage access with full autonomy."},
+  {"title":"Maximize your revenue","description":"With B-FY, optimize your operational profitability and take your bottom line to a new level."},
+  {"title":"Break free from vendor lock‑in","description":"Say goodbye to dependencies on large providers and regain control of your tech strategy."},
+  {"title":"Get guaranteed financial security","description":"Protect every transaction and safeguard your revenue with an impenetrable system."},
+  {"title":"Ensure passwordless authentication","description":"Your users will enjoy an ultra-fast, simple, and seamless experience, with zero passwords."},
+  {"title":"Say goodbye to hidden costs","description":"Completely eliminate expenses from fraud, data breaches, and account takeovers."}
+] />
+
+<#assign fbLinksNav = [
+  {"label":"Features","anchor":"features"},
+  {"label":"Capabilities","anchor":"capabilities"}, 
+  {"label":"Process","anchor":"process"},
+  {"label":"Integration","anchor":"integration"},
+  {"label":"Benefits","anchor":"benefits"},
+  {"label":"Prevention","anchor":"prevention"}
+] />
+
+<#assign fbKnowMoreTitle = "Want to know more?" />
+<#assign fbServiceTitle = "B-FY: At the Service of Its Clients" />
+<#assign fbServiceDesc = "Every company has unique needs, and at B-FY we adapt to their infrastructure to offer a robust and efficient authentication solution." />
+
   <#import "/b-fy/templates/components/nav.ftl" as ui />
   <@ui.nav currentPage="platform" />
-  <main style="margin-top:70px;">
-    <#-- HELPERS -->
-    <#function firstChild nodeName>
-      <#if (content[nodeName])??>
-        <#assign ch = (content[nodeName]?children)![] />
-        <#if ch?size gt 0><#return ch[0] /></#if>
-      </#if>
-      <#return {} />
-    </#function>
-
-    <#-- FALLBACK DATA FROM ASTRO TEXT -->
-    <#assign fbHeroTitle = "A unique authentication platform" />
-    <#assign fbHeroDesc = "B-FY authenticates people, certifying the truth of their identity, through a simple and easy-to-use design, integrated with online applications. With B-FY, there are no credentials that can be stolen or forged." />
-
-    <#assign fbFeatureBlocks = [
-      {"title":"Prevention of malicious AI and phishing attacks","description":"It blocks all malicious generative AI attacks, ensuring access only to legitimate websites and access points."},
-      {"title":"Protection against account takeover","description":"Each transaction is dynamically verified to neutralize cyberattacks and protect users. OpenID certified, simplifying SSO and identity management."},
-      {"title":"Zero Trust model with OpenID certification","description":"Eliminates reliance on central databases, reducing breach risk and preventing ATO attacks."}
-    ] />
-
-    <#assign fbTabs = [
-      "Customer authentication",
-      "Employee authentication",
-      "User-controlled biometrics",
-      "Effective against ATO, AI-driven fraud and phishing",
-      "Compliance",
-      "Decentralized authentication"
-    ] />
-
-    <#assign fbComparisonHeaders = ["Traditional 2FA (SMS, OTP, Apps)","Passwords","Passwordless by design","Decentralized security","Fraud and AI attack prevention","Frictionless user experience","Protection against ATO","User transparency","Easy integration"] />
-    <#-- Detailed comparison matrix (columns: Legacy 2FA, Passwords, B-FY) -->
-    <#assign fbComparisonMatrix = [
-      {"capability":"Passwordless by design","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
-      {"capability":"Decentralized (no shared secrets)","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
-      {"capability":"Prevents phishing / AI spoofing","legacy2fa":"△","passwords":"✕","bfy":"✔"},
-      {"capability":"Blocks ATO (account takeover)","legacy2fa":"△","passwords":"✕","bfy":"✔"},
-      {"capability":"Eliminates credential reuse","legacy2fa":"△","passwords":"✕","bfy":"✔"},
-      {"capability":"Frictionless UX","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
-      {"capability":"Open standards (OIDC)","legacy2fa":"△","passwords":"✕","bfy":"✔"},
-      {"capability":"No OTP fatigue / SIM swap risk","legacy2fa":"✕","passwords":"✕","bfy":"✔"}
-    ] />
-
-    <#assign fbProcessTitle = "Simple and frictionless authentication" />
-    <#assign fbProcessIntro = "A smarter and safer way to authenticate:" />
-    <#assign fbProcessSteps = [
-      "The user scans the B‑FY QR code at an online or physical access point.",
-      "Biometric verification is performed through the institution’s mobile app (with B‑FY libraries integrated).",
-      "B‑FY grants direct access to the user, not just their credentials.",
-      "Why it matters: Hackers can steal credentials, but they cannot replicate a real person.",
-      "B-FY renders identification credentials useless to hackers. Even if leaked, they are worthless without biometric validation.",
-      "Request a demo here"
-    ] />
-
-    <#assign fbIntegrationTitle = "How is B-FY integrated?" />
-    <#assign fbIntegrationParagraphs = [
-      "B-FY Platform offers a well-documented API/OpenID that allows companies to quickly integrate its authentication technology into their platforms (web, mobile, or physical access points).",
-      "No additional hardware: Since B-FY leverages existing smartphone biometric capabilities, companies don't need to invest in specialized hardware or readers.",
-      "Omnichannel compatibility: Works across multiple platforms and channels (websites, mobile apps, physical).",
-      "Fast deployment and scalability: Architecture allows fast integration for millions of users without disrupting workflows."
-    ] />
-
-    <#assign fbRegisterTitle = "Register in seconds" />
-    <#assign fbRegisterDesc = "Set up your account in just a few steps and start enjoying secure, passwordless authentication." />
-
-    <#assign fbUseTitle = "B-FY it's that easy-to-use" />
-    <#assign fbUseDesc = "Access your services quickly and easily. See how it works step by step." />
-
-    <#assign fbKnowMoreTitle = "Want to know more?" />
-    <#assign fbServiceTitle = "B-FY: At the Service of Its Clients" />
-    <#assign fbServiceDesc = "Every company has unique needs, and at B-FY we adapt to their infrastructure to offer a robust and efficient authentication solution." />
-
-    <#assign fbBenefits = [
-      {"title":"Be your own identity authority","description":"Become your own Identity Provider and manage access with full autonomy."},
-      {"title":"Maximize your revenue","description":"Optimize your operational profitability and elevate your bottom line."},
-      {"title":"Break free from vendor lock‑in","description":"Regain control of your technology strategy."},
-      {"title":"Get guaranteed financial security","description":"Protect every transaction with an impenetrable system."},
-      {"title":"Ensure passwordless authentication","description":"Ultra-fast, simple, seamless experience with zero passwords."},
-      {"title":"Say goodbye to hidden costs","description":"Eliminate expenses from fraud, data breaches, and ATO."}
-    ] />
-
-    <#-- LINKS NAV (anchor list) -->
-    <#assign fbLinksNav = [
-      {"label":"Features","anchor":"features"},
-      {"label":"Capabilities","anchor":"comparison"},
-      {"label":"Process","anchor":"process"},
-      {"label":"Integration","anchor":"integration"},
-      {"label":"Benefits","anchor":"benefits"}
-    ] />
-
-    <#assign fbVideo = {"title":"Platform overview","url":"https://www.youtube.com/embed/dQw4w9WgXcQ"} />
-    <#-- Authoring override: content.video (child with properties title, url) -->
-    <#assign videoNode = fbVideo />
-    <#if content.video?has_content>
-      <#assign vChildren = content.video?children />
-      <#if vChildren?size gt 0><#assign videoNode = vChildren[0] /></#if>
-    </#if>
-
   
-    <#-- Anchor navigation (links to sections) -->
-    <section class="px-6 py-8 bg-neutral-50">
-      <div class="max-w-screen-xl mx-auto">
-        <nav class="flex flex-wrap gap-4">
-          <#list fbLinksNav as ln>
-            <a href="${'#' + (ln.anchor!ln['anchor'])!}" class="px-4 py-2 rounded border bg-white hover:text-orange-600">${ln.label!ln['label']!}</a>
-          </#list>
-        </nav>
-      </div>
+  <main style="margin-top:70px;">
+    <section class="min-h-svh mt-12 mb-24 pb-15 px-5 bg-linear-(--color-neutral-100) bg-size-[auto_60%] bg-no-repeat bg-bottom text-center sm:px-10 lg:px-13 xl:mt-24">
+      <@hero.platformHero wrap=false />
+      <@features.platformFeatures />
+      <@video.platformVideo class="max-w-6xl! mx-auto mb-18" />
+      <@links.platformLinks />
+      <@table.platformTable />
+      <@process.platformAuthProcess />
     </section>
-
-    <#-- FEATURE BLOCKS -->
-  <section id="features" class="px-6 py-20">
-      <div class="max-w-screen-xl mx-auto grid gap-10 md:grid-cols-3">
-        <#-- Build safe feature list: if author filled multifield it will be a parent node with children -->
-        <#assign featureList = fbFeatureBlocks />
-        <#if content.features??>
-          <#-- content.features might be a node (ContentMap); get its children -->
-          <#assign _fChildren = (content.features?children)![] />
-          <#if _fChildren?size gt 0>
-            <#assign featureList = _fChildren />
-          </#if>
-        </#if>
-        <#list featureList as f>
-          <#-- f could be a node or a map -->
-          <#assign fTitle = f.title!f["title"]! >
-          <#assign fDesc = f.description!f["description"]! >
-          <div class="p-6 rounded border bg-white shadow-sm flex flex-col gap-4">
-            <h3 class="font-bold text-lg">${fTitle}</h3>
-            <p class="text-sm leading-snug">${fDesc}</p>
-          </div>
-        </#list>
-      </div>
-    </section>
-
-    <#-- TABS (static fallback) -->
-  <section id="comparison" class="px-6 py-10 bg-neutral-50">
-      <div class="max-w-screen-xl mx-auto flex flex-wrap gap-4">
-        <#list fbTabs as t>
-          <span class="px-4 py-2 rounded border text-sm font-medium bg-white">${t}</span>
-        </#list>
-      </div>
-    </section>
-
-    <#-- COMPARISON TABLE (simplified) -->
-    <section class="px-6 py-20">
-      <div class="max-w-screen-xl mx-auto">
-        <h2 class="font-bold text-3xl mb-8">Capabilities</h2>
-        <div class="grid gap-4 md:grid-cols-3 xl:grid-cols-3">
-          <#list fbComparisonHeaders as h>
-            <div class="p-4 rounded border bg-white text-sm leading-snug">${h}</div>
-          </#list>
-        </div>
-        <div class="mt-12 overflow-auto">
-          <table class="w-full text-sm border-collapse">
-            <thead>
-              <tr class="bg-neutral-100">
-                <th class="text-left p-3 border">Capability</th>
-                <th class="text-left p-3 border">Legacy 2FA</th>
-                <th class="text-left p-3 border">Passwords</th>
-                <th class="text-left p-3 border text-orange-600">B-FY</th>
-              </tr>
-            </thead>
-            <tbody>
-              <#assign matrix = fbComparisonMatrix />
-              <#if content.comparison?has_content>
-                <#-- content.comparison could already be a sequence (e.g., multi-value) or a node -->
-                <#if content.comparison?is_sequence>
-                  <#assign matrix = content.comparison />
-                <#else>
-                  <#assign cmpChildren = (content.comparison?children)![] />
-                  <#if cmpChildren?size gt 0><#assign matrix = cmpChildren /></#if>
-                </#if>
-              </#if>
-              <#list matrix as row>
-                <tr class="odd:bg-white even:bg-neutral-50">
-                  <td class="p-3 border font-medium">${row.capability!row["capability"]!}</td>
-                  <td class="p-3 border">${row.legacy2fa!row["legacy2fa"]!}</td>
-                  <td class="p-3 border">${row.passwords!row["passwords"]!}</td>
-                  <td class="p-3 border font-semibold text-orange-600">${row.bfy!row["bfy"]!}</td>
-                </tr>
-              </#list>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <#-- PROCESS -->
-    <section id="process" class="px-6 py-20 bg-neutral-50">
-      <div class="max-w-screen-xl mx-auto">
-        <h2 class="font-bold text-3xl">${fbProcessTitle}</h2>
-        <p class="mt-6 text-lg leading-relaxed max-w-2xl">${fbProcessIntro}</p>
-        <ol class="mt-10 flex flex-col gap-4 text-sm leading-snug list-decimal pl-6">
-          <#list fbProcessSteps as s>
-            <li>${s}</li>
-          </#list>
-        </ol>
-      </div>
-    </section>
-
-    <#-- INTEGRATION -->
-    <section id="integration" class="px-6 py-20">
-      <div class="max-w-screen-xl mx-auto grid gap-12 md:grid-cols-2">
-        <div>
-          <h2 class="font-bold text-3xl mb-6">${fbIntegrationTitle}</h2>
-          <#list fbIntegrationParagraphs as p>
-            <p class="text-sm leading-relaxed mb-4">${p}</p>
-          </#list>
-        </div>
-        <div class="p-6 rounded border bg-white shadow-sm text-sm leading-relaxed flex flex-col gap-6">
-          <div>
-            <h3 class="font-bold mb-2">${fbRegisterTitle}</h3>
-            <p>${fbRegisterDesc}</p>
-          </div>
-            <div>
-              <h3 class="font-bold mb-2">${fbUseTitle}</h3>
-              <p>${fbUseDesc}</p>
-            </div>
-            <div>
-              <h3 class="font-bold mb-2">${videoNode.title!fbVideo.title}</h3>
-              <div class="aspect-video w-full rounded overflow-hidden border">
-                <iframe src="${videoNode.url!fbVideo.url}" title="${videoNode.title!fbVideo.title}" allowfullscreen class="w-full h-full"></iframe>
-              </div>
-            </div>
-        </div>
-      </div>
-    </section>
-
-    <#-- BENEFITS -->
-    <section id="benefits" class="px-6 py-20 bg-neutral-50">
-      <div class="max-w-screen-xl mx-auto">
-        <h2 class="font-bold text-3xl mb-10">${fbKnowMoreTitle}</h2>
-        <p class="text-lg max-w-3xl leading-relaxed mb-12">${fbServiceTitle} – ${fbServiceDesc}</p>
-        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <#list fbBenefits as b>
-            <div class="p-6 rounded border bg-white shadow-sm flex flex-col gap-3">
-              <h3 class="font-bold text-lg">${b.title}</h3>
-              <p class="text-sm leading-snug">${b.description}</p>
-            </div>
-          </#list>
-        </div>
-      </div>
-    </section>
-
-  <#import "/b-fy/templates/components/cta.ftl" as cmp />
-  <@cmp.callToAction tagline="Want to know more?" />
+    <@details.platformDetails />
+    <@customer.platformCustomer />
   </main>
+
   <#import "/b-fy/templates/components/footer.ftl" as layout />
   <@layout.siteFooter />
+
 </body>
 </html>
