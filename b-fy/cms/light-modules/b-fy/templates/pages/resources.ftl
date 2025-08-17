@@ -49,6 +49,15 @@
     .transitions-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; }
     .mt-15 { margin-top: 3.75rem; }
     .mb-15 { margin-bottom: 3.75rem; }
+    .mt-25 { margin-top: 6.25rem; }
+    .mb-20 { margin-bottom: 5rem; }
+    .gap-y-17 { row-gap: 4.25rem; }
+    .text-3xl\/none { font-size: 1.875rem; line-height: 1; }
+    .pt-15 { padding-top: 3.75rem; }
+    .pb-18 { padding-bottom: 4.5rem; }
+    .bg-neutral-200 { background-color: #e5e5e5; }
+    .text-sm\/snug { font-size: 0.875rem; line-height: 1.375; }
+    .group-open\:rotate-45:is(.group[open] *) { transform: rotate(45deg); }
     
     /* Grid and responsive utilities */
     .md\:grid-cols-\[2fr_3fr\] { grid-template-columns: 2fr 3fr; }
