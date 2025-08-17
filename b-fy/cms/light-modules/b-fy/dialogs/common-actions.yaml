@@ -1,7 +1,0 @@
-actions:
-  commit:
-    $type: saveFormAction
-    label: Save
-  cancel:
-    $type: cancelFormAction
-    label: Cancel

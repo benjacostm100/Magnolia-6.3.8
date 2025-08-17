@@ -43,6 +43,6 @@
     </#list>
   </div>
   
-  <a class="dev-help-cta" href="/contact">Need help?</a>
+  <a class="dev-help-cta" href="${ctx.contextPath}/contact">Need help?</a>
 </section>
 </#macro>

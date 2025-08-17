@@ -1,0 +1,20 @@
+label: Industry Detail Page
+form:
+  properties:
+    title:
+      $type: textField
+      label: Title
+      i18n: true
+    description:
+      $type: textField
+      label: Description
+      rows: 3
+      i18n: true
+    content:
+      $type: richTextField
+      label: Content
+      i18n: true
+    image:
+      $type: damLinkField
+      label: Image
+      required: false

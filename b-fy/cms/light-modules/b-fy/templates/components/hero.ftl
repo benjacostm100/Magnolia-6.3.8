@@ -9,7 +9,7 @@
         <input type="email" placeholder="Enter your email..." class="flex-1 rounded border px-4 py-3" />
         <button class="py-3.5 px-5 rounded bg-orange-600 text-lg text-white transition-colors hover:bg-red-800 sm:shrink-0" type="submit">Request demo</button>
       </div>
-      <p class="mt-2 pl-1 text-left text-xs">Review our privacy policy <a class="text-orange-600 underline transition-colors hover:text-red-800" href="/privacy-policy">here</a></p>
+      <p class="mt-2 pl-1 text-left text-xs">Review our privacy policy <a class="text-orange-600 underline transition-colors hover:text-red-800" href="${ctx.contextPath}/privacy-policy">here</a></p>
     </form>
   </div>
   <div class="relative w-fit mx-auto p-8 pb-20 px-5 sm:py-0 sm:pl-25 sm:pr-18 xl:pl-0 xl:shrink-0" aria-hidden="true">

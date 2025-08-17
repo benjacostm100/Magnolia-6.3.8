@@ -1,0 +1,47 @@
+label: Industries
+form:
+  $type: tabbedForm
+  tabs:
+    page:
+      label: Properties
+      fields:
+        title:
+          $type: textField
+          label: Title
+          i18n: true
+        image:
+          $type: damLinkField
+          label: Image
+        description:
+          $type: textField
+          label: Description
+          rows: 7
+          i18n: true
+    list:
+      label: List
+      fields:
+        list:
+          $type: jcrMultiField
+          label: Properties
+          field:
+            $type: compositeField
+            label: Industry
+            properties:
+              image:
+                $type: damLinkField
+                label: Image
+              title:
+                $type: textField
+                label: Title
+                i18n: true
+              description:
+                $type: textField
+                label: Description
+                rows: 5
+                i18n: true
+              link:
+                $type: linkField
+                label: Link
+                datasource:
+                  $type: jcrDatasource
+                  workspace: industries

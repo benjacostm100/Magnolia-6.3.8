@@ -1,0 +1,142 @@
+label: Partners
+form:
+  $type: tabbedForm
+  tabs:
+    page:
+      label: Properties
+      fields:
+        tagline:
+          $type: textField
+          label: Tagline
+          i18n: true
+        title:
+          $type: textField
+          label: Title
+          i18n: true
+        image:
+          $type: damLinkField
+          label: Image
+        description:
+          $type: textField
+          label: Description
+          rows: 3
+          i18n: true
+    details:
+      label: Details
+      fields:
+        details:
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            description:
+              $type: textField
+              label: Description
+              rows: 3
+              i18n: true
+            items:
+              $type: jcrMultiField
+              label: Items
+              field:
+                $type: compositeField
+                label: Item
+                properties:
+                  image:
+                    $type: damLinkField
+                    label: Image
+                  title:
+                    $type: textField
+                    label: Title
+                    i18n: true
+                  description:
+                    $type: textField
+                    label: Description
+                    rows: 4
+                    i18n: true
+    list:
+      label: Partners List
+      fields:
+        list:
+          $type: jcrMultiField
+          label: Properties
+          field:
+            $type: compositeField
+            label: Partner
+            properties:
+              name:
+                $type: textField
+                label: Name
+              logo:
+                $type: damLinkField
+                label: Logo
+    benefits:
+      label: Benefits
+      fields:
+        benefits:
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            description:
+              $type: textField
+              label: Description
+              rows: 2
+              i18n: true
+            items:
+              $type: jcrMultiField
+              label: Items
+              field:
+                $type: compositeField
+                label: Item
+                properties:
+                  icon:
+                    $type: damLinkField
+                    label: Icon
+                  title:
+                    $type: textField
+                    label: Title
+                    i18n: true
+                  description:
+                    $type: textField
+                    label: Description
+                    rows: 2
+                    i18n: true
+    form:
+      label: Form
+      fields:
+        form:
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            content:
+              $type: richTextField
+              label: Content
+              height: 180
+              i18n: true
+            description:
+              $type: textField
+              label: Description
+              rows: 3
+              i18n: true

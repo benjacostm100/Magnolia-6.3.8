@@ -4,11 +4,9 @@ form:
     title:
       $type: textField
       label: Title
-      required: true
       i18n: true
     description:
       $type: textField
       label: Text
       rows: 2
-      required: true
       i18n: true

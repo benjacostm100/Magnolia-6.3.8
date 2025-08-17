@@ -1,2 +1,5 @@
 title: Contact template
-dialog: b-fy:contact
+renderType: freemarker
+templateScript: /b-fy/templates/pages/contact.ftl
+dialog: b-fy:pages/contact
+visible: true

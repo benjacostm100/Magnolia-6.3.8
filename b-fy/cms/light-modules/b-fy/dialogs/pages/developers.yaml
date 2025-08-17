@@ -1,0 +1,156 @@
+label: Developers
+form:
+  $type: tabbedForm
+  tabs:
+    page:
+      label: Properties
+      fields:
+        title:
+          $type: textField
+          label: Title
+          i18n: true
+        description:
+          $type: textField
+          label: Description
+          rows: 2
+          i18n: true
+        subtitle:
+          $type: textField
+          label: Subtitle
+          i18n: true
+    features:
+      label: Features
+      fields:
+        features:
+          $type: jcrMultiField
+          label: Properties
+          field:
+            $type: compositeField
+            label: Feature
+            properties:
+              name:
+                $type: textField
+                label: Name
+                i18n: true
+              description:
+                $type: textField
+                label: Description
+                rows: 4
+                i18n: true
+    details:
+      label: Details
+      fields:
+        details:
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            image:
+              $type: damLinkField
+              label: Image
+            tagline:
+              $type: textField
+              label: Tagline
+              i18n: true
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            subtitle:
+              $type: textField
+              label: Subtitle
+              i18n: true
+            description:
+              $type: textField
+              label: Description
+              rows: 5
+              i18n: true
+            items:
+              $type: jcrMultiField
+              label: Items
+              field:
+                $type: compositeField
+                label: Item
+                properties:
+                  icon:
+                    $type: damLinkField
+                    label: Icon
+                  name:
+                    $type: textField
+                    label: Name
+                    i18n: true
+                  description:
+                    $type: textField
+                    label: Description
+                    rows: 3
+                    i18n: true
+                  link:
+                    $type: textField
+                    label: Link
+    resources:
+      label: Resources
+      fields:
+        resources:
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          properties:
+            tagline:
+              $type: textField
+              label: Tagline
+              i18n: true
+            title:
+              $type: textField
+              label: Title
+              i18n: true
+            items:
+              $type: jcrMultiField
+              label: Items
+              field:
+                $type: compositeField
+                label: Item
+                properties:
+                  icon:
+                    $type: damLinkField
+                    label: Icon
+                  title:
+                    $type: textField
+                    label: Title
+                    i18n: true
+                  description:
+                    $type: textField
+                    label: Description
+                    rows: 2
+                    i18n: true
+                  name:
+                    $type: textField
+                    label: Name
+                    i18n: true
+                  link:
+                    $type: textField
+                    label: Link
+    faqs:
+      label: FAQs
+      fields:
+        faqs:
+          $type: jcrMultiField
+          label: Properties
+          field:
+            $type: compositeField
+            label: FAQ
+            properties:
+              question:
+                $type: textField
+                label: Question
+                i18n: true
+              answer:
+                $type: textField
+                label: Answer
+                rows: 3
+                i18n: true

@@ -1,4 +1,11 @@
-<#-- Universal Call To Action component -->
+<#-- Universal Call To<#macro callToAction 
+    tagline="" 
+    title="Experience the new era of authentication." 
+    description="Discover how B-FY can transform your company's security. Request a demo or contact us for more information." 
+    primaryLabel="Get a demo" 
+    primaryLink="${ctx.contextPath}/contact" 
+    secondaryLabel="Contact us" 
+    secondaryLink="${ctx.contextPath}/contact"component -->
 
 <#-- Helper functions moved to top-level (can't nest macro/function definitions) -->
 <#function webResourcePath path>

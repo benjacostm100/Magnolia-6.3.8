@@ -1,9 +1,15 @@
+<#macro render currentPage="">
+  <@nav currentPage=currentPage />
+</#macro>
+
 <#macro nav currentPage="">
+<#-- Base context path (same as footer) -->
+<#assign base = ctx.contextPath />
   <nav class="main-navigation">
     <div class="nav-container">
       <#-- Logo (reemplaza con tu imagen) -->
       <div class="nav-logo">
-        <a href="/">
+        <a href="${base}/">
           <img src="${ctx.contextPath}/.resources/b-fy/webresources/favicon.png" alt="B-FY" width="48" height="48" style="height:40px;width:auto;" />
         </a>
       </div>
@@ -22,8 +28,8 @@
 
       <#-- Botones de acción -->
       <div class="action-buttons">
-  <a href="/contact" class="demo-button">Get a demo</a>
-  <a href="/contact" class="contact-button">Contact us</a>
+  <a href="${base}/contact" class="demo-button">Get a demo</a>
+  <a href="${base}/contact" class="contact-button">Contact us</a>
       </div>
 
       <#-- Botón mobile -->
@@ -47,8 +53,8 @@
         <@mobileNavItem path="contact" currentPage=currentPage>Contact</@mobileNavItem>
       </ul>
       <div class="mobile-action-buttons">
-  <a href="/contact" class="demo-button">Get a demo</a>
-  <a href="/contact" class="contact-button">Contact us</a>
+  <a href="${base}/contact" class="demo-button">Get a demo</a>
+  <a href="${base}/contact" class="contact-button">Contact us</a>
       </div>
     </div>
 
@@ -327,7 +333,13 @@
 
 <#-- Macro para items de navegación desktop -->
 <#macro navItem path currentPage items={}>
-  <#assign fullPath = "/" + path>
+  <#assign fullPath>
+    <#if path == "">
+      ${base}/
+    <#else>
+      ${base}/${path}
+    </#if>
+  </#assign>
   <#assign isActive = (currentPage == path)>
   
   <li class="nav-item ${isActive?then('active', '')}">
@@ -344,7 +356,7 @@
       <ul class="submenu">
         <#list items as itemPath, itemLabel>
           <li class="submenu-item">
-            <a href="${fullPath}/${itemPath}" class="submenu-link">
+            <a href="${base}/${path}/${itemPath}" class="submenu-link">
               ${itemLabel}
             </a>
           </li>
@@ -356,7 +368,13 @@
 
 <#-- Macro para items de navegación mobile -->
 <#macro mobileNavItem path currentPage>
-  <#assign fullPath = "/" + path>
+  <#assign fullPath>
+    <#if path == "">
+      ${base}/
+    <#else>
+      ${base}/${path}
+    </#if>
+  </#assign>
   <#assign isActive = (currentPage == path)>
   
   <li class="mobile-nav-item ${isActive?then('active', '')}">
