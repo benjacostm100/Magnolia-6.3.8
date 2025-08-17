@@ -58,7 +58,7 @@
         </#if>
         <article class="relative py-15 px-6 from-white to-red-100 ${(it?index % 2 == 1)?then('even:rounded-tl-lg even:bg-linear-240','')} sm:px-12 xl:py-12">
           <#if it?index != 0>
-            <img class="absolute inset-x-0 w-6 my-4 mx-auto ${(it?index % 2 == 0)?then('top-0 xl:right-auto','bottom-full xl:left-auto xl:right-full')} xl:inset-y-0 xl:my-auto xl:mx-4" src="${ic.iconPath('plus.svg')}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${ic.iconPath('arrow-right.svg')}'" />
+            <@ic.iconSvg name="plus" class="absolute inset-x-0 w-6 my-4 mx-auto text-orange-600 ${(it?index % 2 == 0)?then('top-0 xl:right-auto','bottom-full xl:left-auto xl:right-full')} xl:inset-y-0 xl:my-auto xl:mx-4" />
           </#if>
           <img class="size-11 object-contain" src="${icon}" alt="" loading="lazy" />
           <h3 class="mt-5 mb-3 font-bold text-xl/tight uppercase">${it.title!}</h3>
@@ -83,7 +83,7 @@
       <@vid.platformVideo id=loginVideoId title=loginTitle />
     </section>
     <div class="mt-16 text-center">
-      <a href="${ctx.contextPath}/contact" class="w-fit mx-auto py-2.5 px-5 inline-block rounded bg-orange-600 text-xl text-white hover:bg-red-800 transition-colors">Want to know more?</a>
+      <a href="${ctx.contextPath}/contact" class="w-fit mx-auto py-2.5 px-5 block rounded bg-orange-600 text-xl text-white transition-colors hover:bg-red-800">Want to know more?</a>
     </div>
   </section>
 </#macro>

@@ -43,6 +43,8 @@
     .bg-linear-\(--color-neutral-100\) { background: linear-gradient(180deg, var(--color-neutral-100, #f5f5f5) 0%, transparent 100%); }
     .bg-size-\[auto_60\%\] { background-size: auto 60%; }
     .max-w-6xl\! { max-width: 72rem !important; }
+    .bg-linear-240 { background: linear-gradient(240deg, #ffffff 0%, #fee2e2 100%); }
+    .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
     
     /* Grid and responsive utilities */
     .md\:grid-cols-\[9fr_8fr\] { grid-template-columns: 9fr 8fr; }
@@ -92,6 +94,7 @@
 <#import "/b-fy/templates/components/platform/platform-video.ftl" as video>
 <#import "/b-fy/templates/components/platform/platform-details.ftl" as details>
 <#import "/b-fy/templates/components/platform/platform-customer.ftl" as customer>
+<#import "/b-fy/templates/components/platform/platform-call-to-action.ftl" as cta>
 
 <#-- HELPERS -->
 <#function firstChild nodeName>
@@ -108,8 +111,9 @@
 
 <#assign fbFeatureBlocks = [
   {"title":"Prevention of malicious AI and phishing attacks","description":"It blocks all malicious generative AI attacks, ensuring access only to legitimate websites and access points."},
-  {"title":"Protection against account takeover","description":"Each transaction is dynamically verified to neutralize cyberattacks and protect users. OpenID certified, simplifying SSO and identity management."},
-  {"title":"Zero Trust model with OpenID certification","description":"Eliminates reliance on central databases, reducing breach risk and preventing ATO attacks."}
+  {"title":"Protection against account takeover","description":"Each transaction is dynamically verified to neutralize cyberattacks and protect users. B-FY, OpenID certified, guarantees security and interoperability, simplifying SSO and advanced identity management with easy and reliable implementation."},
+  {"title":"Zero Trust model with OpenID certification","description":"It eliminates reliance on central databases, reducing the risk of data breaches and preventing account takeover attacks (ATO)."},
+  {"title":"User-controlled biometrics","description":"Users maintain complete control over their biometric data, ensuring privacy and security while enabling seamless authentication experiences."}
 ] />
 
 <#assign fbTabs = [
@@ -131,7 +135,8 @@
   {"capability":"Eliminates credential reuse","legacy2fa":"△","passwords":"✕","bfy":"✔"},
   {"capability":"Frictionless UX","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
   {"capability":"Open standards (OIDC)","legacy2fa":"△","passwords":"✕","bfy":"✔"},
-  {"capability":"No OTP fatigue / SIM swap risk","legacy2fa":"✕","passwords":"✕","bfy":"✔"}
+  {"capability":"No OTP fatigue / SIM swap risk","legacy2fa":"✕","passwords":"✕","bfy":"✔"},
+  {"capability":"Real-time fraud detection","legacy2fa":"✕","passwords":"✕","bfy":"✔"}
 ] />
 
 <#assign fbProcessTitle = "Simple and frictionless authentication" />
@@ -139,7 +144,9 @@
 <#assign fbProcessSteps = [
   {"title":"The user scans the B‑FY QR code at an online or physical access point."},
   {"title":"Biometric verification is performed through the institution's mobile app (with B‑FY libraries integrated)."},
-  {"title":"B‑FY grants direct access to the user, not just their credentials."}
+  {"title":"B‑FY grants direct access to the user, not just their credentials."},
+  {"title":"Why it matters: Hackers can steal credentials, but they cannot replicate a real person."},
+  {"title":"B-FY renders identification credentials useless to hackers. Even if leaked, they are worthless without biometric validation."}
 ] />
 
 <#assign fbIntegrationTitle = "How is B-FY integrated?" />
@@ -147,7 +154,9 @@
   "B-FY Platform offers a well-documented API/OpenID that allows companies to quickly integrate its authentication technology into their platforms (web, mobile, or physical access points).",
   "No additional hardware - Since B-FY leverages existing smartphone biometric capabilities, companies don't need to invest in specialized hardware or readers.",
   "Omnichannel compatibility - B-FY's solution works across multiple platforms and channels, ensuring companies can integrate it into websites, mobile apps, and even physical environments.",
-  "Fast deployment and scalability - Whether for a startup or a large enterprise, B-FY's architecture allows fast and scalable deployment for millions of users without disrupting existing workflows."
+  "Fast deployment and scalability - Whether for a startup or a large enterprise, B-FY's architecture allows fast and scalable deployment for millions of users without disrupting existing workflows.",
+  "Enterprise-grade security - Built with enterprise security requirements in mind, B-FY provides comprehensive audit logs, compliance reporting, and administrative controls.",
+  "Developer-friendly SDKs - Complete software development kits available for all major platforms including iOS, Android, Web (JavaScript), Python, .NET, and Java."
 ] />
 
 <#assign fbBenefits = [
@@ -179,10 +188,11 @@
     <section class="min-h-svh mt-12 mb-24 pb-15 px-5 bg-linear-(--color-neutral-100) bg-size-[auto_60%] bg-no-repeat bg-bottom text-center sm:px-10 lg:px-13 xl:mt-24">
       <@hero.platformHero wrap=false />
       <@features.platformFeatures />
-      <@video.platformVideo class="max-w-6xl! mx-auto mb-18" />
+      <@video.platformVideo class="max-w-6xl! mx-auto mb-18" id=(content.videoId)!"dQw4w9WgXcQ" />
       <@links.platformLinks />
       <@table.platformTable />
       <@process.platformAuthProcess />
+      <@cta.callToAction>Want to know more?</@cta.callToAction>
     </section>
     <@details.platformDetails />
     <@customer.platformCustomer />
