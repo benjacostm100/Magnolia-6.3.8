@@ -1,11 +1,21 @@
-<#-- Universal Call To<#macro callToAction 
-    tagline="" 
-    title="Experience the new era of authentication." 
-    description="Discover how B-FY can transform your company's security. Request a demo or contact us for more information." 
-    primaryLabel="Get a demo" 
-    primaryLink="${ctx.contextPath}/contact" 
-    secondaryLabel="Contact us" 
-    secondaryLink="${ctx.contextPath}/contact"component -->
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline para evitar errores de runtime -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
 
 <#-- Helper functions moved to top-level (can't nest macro/function definitions) -->
 <#function webResourcePath path>
@@ -17,24 +27,22 @@
 </#function>
 
 <#function damLinkByPath path>
-  <#attempt>
-    <#local damNode = cmsfn.contentByPath(path, "dam")!>
-    <#if damNode?? && damNode?has_content>
-      <#return damfn.link(damNode) />
-    </#if>
-  <#recover>
-  </#attempt>
+  <#local damNode = (cmsfn.contentByPath(path, "dam")!)! />
+  <#if damNode?? && damNode?has_content && (damfn??)>
+    <#return (damfn.link(damNode))!"" />
+  </#if>
   <#return "" />
 </#function>
 
+<#-- Universal Call To Action component -->
 <#macro callToAction 
     tagline="" 
     title="Experience the new era of authentication." 
-    description="Discover how B-FY can transform your company’s security. Request a demo or contact us for more information." 
+    description="Discover how B-FY can transform your company's security. Request a demo or contact us for more information." 
     primaryLabel="Get a demo" 
-    primaryLink="/contact" 
+    primaryLink="${ctx.contextPath}/contact" 
     secondaryLabel="Contact us" 
-    secondaryLink="/contact" 
+    secondaryLink="${ctx.contextPath}/contact" 
     backgroundNode=""
 >
   <#-- Inject styles only once per page -->
@@ -75,13 +83,13 @@
   </#if>
 
   <#-- Page-level direct property fallbacks (e.g., ctaTitle, ctaDescription, etc.) allow simple dialog fields without nested nodes -->
-  <#assign _tagline      = ctaNode.tagline!content.ctaTagline!tagline />
-  <#assign _title        = ctaNode.title!content.ctaTitle!title />
-  <#assign _description  = ctaNode.description!content.ctaDescription!description />
-  <#assign _pLabel       = ctaNode.primaryButtonLabel!content.ctaPrimaryButtonLabel!primaryLabel />
-  <#assign _pLink        = ctaNode.primaryButtonLink!content.ctaPrimaryButtonLink!primaryLink />
-  <#assign _sLabel       = ctaNode.secondaryButtonLabel!content.ctaSecondaryButtonLabel!secondaryLabel />
-  <#assign _sLink        = ctaNode.secondaryButtonLink!content.ctaSecondaryButtonLink!secondaryLink />
+  <#assign _tagline      = cmsOrDefault(cmsOrDefault(ctaNode.tagline!'', content.ctaTagline!''), tagline) />
+  <#assign _title        = cmsOrDefault(cmsOrDefault(ctaNode.title!'', content.ctaTitle!''), title) />
+  <#assign _description  = cmsOrDefault(cmsOrDefault(ctaNode.description!'', content.ctaDescription!''), description) />
+  <#assign _pLabel       = cmsOrDefault(cmsOrDefault(ctaNode.primaryButtonLabel!'', content.ctaPrimaryButtonLabel!''), primaryLabel) />
+  <#assign _pLink        = cmsOrDefault(cmsOrDefault(ctaNode.primaryButtonLink!'', content.ctaPrimaryButtonLink!''), primaryLink) />
+  <#assign _sLabel       = cmsOrDefault(cmsOrDefault(ctaNode.secondaryButtonLabel!'', content.ctaSecondaryButtonLabel!''), secondaryLabel) />
+  <#assign _sLink        = cmsOrDefault(cmsOrDefault(ctaNode.secondaryButtonLink!'', content.ctaSecondaryButtonLink!''), secondaryLink) />
 
   <#-- Background resolution precedence: authored node background > backgroundNode param > page-level property (ctaBackground) > default asset -->
   <#assign _bg = '' />
@@ -128,3 +136,10 @@
     <span class="uni-cta__overlay" aria-hidden="true"></span>
   </section>
 </#macro>
+
+<#-- CTA instance with CMS content support -->
+<#if content??>
+  <@callToAction />
+<#else>
+  <@callToAction />
+</#if>

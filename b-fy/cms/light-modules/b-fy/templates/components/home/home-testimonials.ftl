@@ -1,3 +1,22 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original home-testimonials.ftl content -->
 <#macro homeTestimonials title="" description="">
 	<#if !HOME_TESTIMONIALS_STYLE_INCLUDED??>
@@ -42,8 +61,8 @@
 			<#assign _tConf = _tChildren[0] />
 		</#if>
 	</#if>
-	<#assign _title = _tConf.title!title />
-	<#assign _desc = _tConf.description!description />
+	<#assign _title = cmsOrDefault(_tConf.title!'', title) />
+	<#assign _desc = cmsOrDefault(_tConf.description!'', description) />
 	<#assign testimonialList = [] />
 	<#if content.testimonials?has_content>
 		<#assign _testChildren = (content.testimonials?children)![] />

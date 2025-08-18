@@ -1,3 +1,40 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Función de emergencia para resolver imágenes DAM con fallback local -->
+<#function damOrLocal damImage localPath>
+  <#if damImage?? && damImage?has_content && (damfn??)>
+    <#attempt>
+      <#local damUrl = damfn.link(damImage) />
+      <#if damUrl?has_content>
+        <#return damUrl />
+      </#if>
+    <#recover>
+    </#attempt>
+  </#if>
+  <#if localPath?starts_with("http") || localPath?starts_with("/")>
+    <#return localPath />
+  </#if>
+  <#return ctx.contextPath + "/.resources/b-fy/webresources/images/" + localPath />
+</#function>
+
+<#-- Función de emergencia para detectar contenido "real" -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#-- Función de emergencia para CMS o default -->
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original platform-hero.ftl content (removed wrapper include) -->
 <#macro platformHero wrap=true>
 	<#assign heroNode = {} />
@@ -15,18 +52,9 @@
 				</#if>
 			</#if>
 		</#if>
-	<#assign heroTitle = heroNode.title!"A unique authentication platform" />
-	<#assign heroDescription = heroNode.description!"B-FY authenticates people, certifying the truth of their identity, through a simple and easy-to-use design, integrated with online applications. With B-FY, there are no credentials that can be stolen or forged." />
-	<#assign heroImage = "" />
-	<#if heroNode.image?has_content>
-		<#assign imgNode = cmsfn.contentById(heroNode.image!)! />
-		<#if imgNode?? && (damfn??)>
-			<#attempt><#assign heroImage = (damfn.link(imgNode))!"" /><#recover></#attempt>
-		</#if>
-	</#if>
-	<#if !heroImage?has_content>
-		<#assign heroImage = ctx.contextPath + '/.resources/b-fy/webresources/images/platform.webp' />
-	</#if>
+	<#assign heroTitle = cmsOrDefault(heroNode.title!'', "A unique authentication platform") />
+	<#assign heroDescription = cmsOrDefault(heroNode.description!'', "B-FY authenticates people, certifying the truth of their identity, through a simple and easy-to-use design, integrated with online applications. With B-FY, there are no credentials that can be stolen or forged.") />
+	<#assign heroImage = damOrLocal(heroNode.image!'', '/.resources/b-fy/webresources/images/platform.webp') />
 	<#if wrap><section class="min-h-svh mt-12 mb-24 pb-15 px-5 bg-linear-(--color-neutral-100) bg-size-[auto_60%] bg-no-repeat bg-bottom text-center sm:px-10 lg:px-13 xl:mt-24"></#if>
 		<h1 class="font-bold text-3xl xl:text-5xl">${heroTitle}</h1>
 		<p class="max-w-240 mt-9 mb-15 mx-auto text-lg xl:text-xl/snug">${heroDescription}</p>

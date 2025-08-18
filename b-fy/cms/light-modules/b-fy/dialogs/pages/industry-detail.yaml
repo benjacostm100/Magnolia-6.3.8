@@ -1,20 +1,51 @@
 label: Industry Detail Page
 form:
-  properties:
-    title:
-      $type: textField
-      label: Title
-      i18n: true
-    description:
-      $type: textField
-      label: Description
-      rows: 3
-      i18n: true
-    content:
-      $type: richTextField
+  $type: tabbedForm
+  tabs:
+    main:
       label: Content
-      i18n: true
-    image:
-      $type: damLinkField
-      label: Image
-      required: false
+      fields:
+        title:
+          $type: textField
+          label: Title
+          i18n: true
+        description:
+          $type: richTextField
+          label: Description
+          i18n: true
+        section1Title:
+          $type: textField
+          label: Section 1 Title
+          i18n: true
+        section1Description:
+          $type: richTextField
+          label: Section 1 Description
+          i18n: true
+        section1Image:
+          $type: textField
+          label: Section 1 Image URL
+          description: "URL or path of the image"
+        section2Title:
+          $type: textField
+          label: Section 2 Title
+          i18n: true
+        section2Description:
+          $type: richTextField
+          label: Section 2 Description
+          i18n: true
+        section2Image:
+          $type: textField
+          label: Section 2 Image URL
+          description: "URL or path of the image"
+        section3Title:
+          $type: textField
+          label: Section 3 Title
+          i18n: true
+        section3Description:
+          $type: richTextField
+          label: Section 3 Description
+          i18n: true
+        section3Image:
+          $type: textField
+          label: Section 3 Image URL
+          description: "URL or path of the image"

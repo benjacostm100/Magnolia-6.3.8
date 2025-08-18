@@ -1,3 +1,22 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original home-industries.ftl content -->
 <#macro homeIndustries 
 	tagline="B‑FY in action"
@@ -47,9 +66,9 @@
 			<#assign _industries = _indChildren[0] />
 		</#if>
 	</#if>
-	<#assign _tag = _industries.tagline!tagline />
-	<#assign _title = _industries.title!title />
-	<#assign _desc = _industries.description!description />
+	<#assign _tag = cmsOrDefault(_industries.tagline!'', tagline) />
+	<#assign _title = cmsOrDefault(_industries.title!'', title) />
+	<#assign _desc = cmsOrDefault(_industries.description!'', description) />
 	<#assign itemList = fallbackIndustryItems />
 	<#assign authoredItems = [] />
 	<#if _industries?has_content>

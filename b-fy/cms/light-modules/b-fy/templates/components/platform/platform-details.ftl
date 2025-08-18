@@ -1,4 +1,22 @@
 <#-- Platform Details (parity with Astro _platform/Details.astro) -->
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
 <#import "/b-fy/templates/components/util/icons.ftl" as ic />
 <#macro platformDetails>
   <#assign fbTitle = "How is B-FY integrated?" />
@@ -17,8 +35,8 @@
   <#assign fbLoginVideoId = "WVHd_-rQyqQ" />
   <#assign detailsNode = (content.details?children)?has_content?then(content.details?children[0], content.details) />
   <#if !(detailsNode?has_content)><#assign detailsNode = {} /></#if>
-  <#assign title = detailsNode.title!fbTitle />
-  <#assign description = detailsNode.description!fbDescription />
+  <#assign title = cmsOrDefault(detailsNode.title!'', fbTitle) />
+  <#assign description = cmsOrDefault(detailsNode.description!'', fbDescription) />
   <#assign itemsContainer = detailsNode.items! />
   <#assign itemNodes = [] />
   <#if itemsContainer??>

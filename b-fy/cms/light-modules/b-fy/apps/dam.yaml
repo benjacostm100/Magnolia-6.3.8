@@ -1,0 +1,15 @@
+label: DAM Configuration
+form:
+  $type: formDefinition
+  tabs:
+    main:
+      label: Main
+      fields:
+        folderFilter:
+          $type: textField
+          label: Folder Filter
+          defaultValue: "/"
+        allowedMimeTypes:
+          $type: textField
+          label: Allowed MIME Types
+          defaultValue: "image/*"

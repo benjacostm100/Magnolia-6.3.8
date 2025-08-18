@@ -1,3 +1,22 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Refactored to mirror Astro Features. Dynamic (content.features children) with fallback list + local image fallback. -->
 <#import "/b-fy/templates/components/util/icons.ftl" as ic />
 <#macro platformFeatures>

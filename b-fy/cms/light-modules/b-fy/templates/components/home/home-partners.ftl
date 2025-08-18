@@ -1,3 +1,22 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original home-partners.ftl content -->
 
 <#-- Helper functions extracted to top-level (cannot be inside macro) -->
@@ -31,9 +50,9 @@
 		"description":"B-FY is looking for strategic partners: integrators, technology providers, consultants. Expand your reach, increase client value and maximize profitability with decentralized biometrics, passwordless authentication, and advanced fraud prevention.",
 		"benefits":["Access to cutting‑edge technology","Incentive structure","Technical support and specialized training","Marketing materials and resources"]
 	} />
-	<#assign _tagline = partnersNode.tagline!_fallback.tagline />
-	<#assign _title = partnersNode.title!_fallback.title />
-	<#assign _desc = partnersNode.description!_fallback.description />
+	<#assign _tagline = cmsOrDefault(partnersNode.tagline!'', _fallback.tagline) />
+	<#assign _title = cmsOrDefault(partnersNode.title!'', _fallback.title) />
+	<#assign _desc = cmsOrDefault(partnersNode.description!'', _fallback.description) />
 	<#assign benefits = [] />
 	<#if partnersNode.benefits?has_content>
 		<#assign benefits = partnersNode.benefits?children />

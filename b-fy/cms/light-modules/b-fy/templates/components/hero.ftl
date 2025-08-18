@@ -1,9 +1,33 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Hero component migrated from Astro Hero.astro -->
+<#-- Local assignments for CMS vs default content -->
+<#assign heroTagline = cmsOrDefault(content.tagline!'', "Connect with us") />
+<#assign heroTitle = cmsOrDefault(content.title!'', "Default Hero Title") />
+<#assign heroDescription = cmsOrDefault(content.description!'', "Default hero description") />
+
 <section class="pt-32 pb-16 px-6 flex flex-col gap-12 bg-gradient-to-br from-white to-neutral-100 xl:flex-row xl:items-center xl:justify-between">
   <div class="xl:max-w-screen-md text-pretty max-xl:text-center">
-    <p class="leading-snug text-orange-600 uppercase">${content.tagline!}</p>
-    <h1 class="mt-6 font-bold text-4xl leading-tight">${content.title!}</h1>
-    <p class="mt-8 mb-6 text-lg">${content.description!}</p>
+    <p class="leading-snug text-orange-600 uppercase">${heroTagline}</p>
+    <h1 class="mt-6 font-bold text-4xl leading-tight">${heroTitle}</h1>
+    <p class="mt-8 mb-6 text-lg">${heroDescription}</p>
     <form class="max-w-lg mx-auto xl:mx-0">
       <div class="flex flex-col gap-4 sm:flex-row">
         <input type="email" placeholder="Enter your email..." class="flex-1 rounded border px-4 py-3" />

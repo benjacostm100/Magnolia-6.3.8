@@ -1,7 +1,5 @@
 title: Industry Detail
 renderType: freemarker
 templateScript: /b-fy/templates/pages/industry-detail.ftl
-description: Industry detail template (fallback) from dynamic Astro industry route
 dialog: b-fy:pages/industry-detail
-
 visible: true

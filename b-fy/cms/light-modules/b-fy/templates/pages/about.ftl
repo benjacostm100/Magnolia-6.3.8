@@ -1,8 +1,27 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>${content.title!"About Us | B-FY"}</title>
+  <title>${cmsOrDefault(content.title!'', "About Us | B-FY")}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="${ctx.contextPath}/.resources/b-fy/webresources/favicon.png" />
   <link rel="stylesheet" href="${ctx.contextPath}/.resources/b-fy/webresources/styles.css" />
@@ -37,8 +56,8 @@
 
 <main style="margin-top:70px;">
   <#-- Hero & Carousel -->
-  <#assign heroTitle = content.title!"About B-FY" />
-  <#assign heroDescription = content.description!"" />
+  <#assign heroTitle = cmsOrDefault(content.title!'', "About B-FY") />
+  <#assign heroDescription = cmsOrDefault(content.description!'', "") />
   <#assign carouselNode = cmsfn.contentByPath(content.@path + "/carousel", content.@workspace)! />
   <#assign carouselItems = [] />
   <#if carouselNode??>

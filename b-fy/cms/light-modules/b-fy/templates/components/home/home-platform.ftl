@@ -1,3 +1,22 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original home-platform.ftl content -->
 <#macro homePlatform 
 	tagline="Authenticate the real person behind the digital identity"
@@ -50,9 +69,9 @@
 			<#assign _platform = _platformChildren[0] />
 		</#if>
 	</#if>
-	<#assign _tag = _platform.tagline!tagline />
-	<#assign _title = _platform.title!title />
-	<#assign _desc = _platform.description!description />
+	<#assign _tag = cmsOrDefault(_platform.tagline!'', tagline) />
+	<#assign _title = cmsOrDefault(_platform.title!'', title) />
+	<#assign _desc = cmsOrDefault(_platform.description!'', description) />
 	<#assign featureList = fallbackFeatures />
 	<#if _platform.features?has_content>
 		<#assign featureList = _platform.features />

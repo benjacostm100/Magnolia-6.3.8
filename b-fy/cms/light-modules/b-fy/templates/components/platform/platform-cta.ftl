@@ -10,7 +10,26 @@
     {"title":"Ensure passwordless authentication","description":"Your users will enjoy an ultra-fast, simple, and seamless experience, with zero passwords."},
     {"title":"Say goodbye to hidden costs","description":"Completely eliminate expenses from fraud, data breaches, and account takeovers."}
   ] />
-  <#-- Allow authored override via content.platformCta (null-safe) -->
+  <#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
+<#-- Platform CTA (call-to-action) component with optional authored content -->
   <#assign node = {} />
   <#if content?? && content.platformCta??>
     <#assign raw = content.platformCta />
@@ -24,8 +43,8 @@
       <#assign node = raw />
     </#if>
   </#if>
-  <#assign title = node.title!fbTitle />
-  <#assign description = node.description!fbDesc />
+  <#assign title = cmsOrDefault(node.title!'', fbTitle) />
+  <#assign description = cmsOrDefault(node.description!'', fbDesc) />
   <#assign bContainer = node.benefits! />
   <#assign bNodes = [] />
   <#if bContainer??>

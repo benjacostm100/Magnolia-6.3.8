@@ -1,4 +1,23 @@
-<#-- Platform Customer (parity with Astro _platform/Customer.astro) -->
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Funciones de emergencia inline -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
+<#-- Platform Customer component with authored content support -->
 <#macro platformCustomer>
   <#assign fbTitle = "B-FY: At the Service of Its Clients" />
   <#assign fbDesc = "Every company has unique needs, and at B-FY we adapt to their infrastructure to offer a robust and efficient authentication solution." />
@@ -12,8 +31,8 @@
   ] />
   <#assign customerNode = (content.customer?children)?has_content?then(content.customer?children[0], content.customer) />
   <#if !(customerNode?has_content)><#assign customerNode = {} /></#if>
-  <#assign title = customerNode.title!fbTitle />
-  <#assign description = customerNode.description!fbDesc />
+  <#assign title = cmsOrDefault(customerNode.title!'', fbTitle) />
+  <#assign description = cmsOrDefault(customerNode.description!'', fbDesc) />
   <#assign featuresContainer = customerNode.features! />
   <#assign featNodes = [] />
   <#if featuresContainer??>

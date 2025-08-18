@@ -1,3 +1,40 @@
+<#-- Import shared CMS utilities -->
+<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
+
+<#-- Función de emergencia para resolver imágenes DAM con fallback local -->
+<#function damOrLocal damImage localPath>
+  <#if damImage?? && damImage?has_content && (damfn??)>
+    <#attempt>
+      <#local damUrl = damfn.link(damImage) />
+      <#if damUrl?has_content>
+        <#return damUrl />
+      </#if>
+    <#recover>
+    </#attempt>
+  </#if>
+  <#if localPath?starts_with("http") || localPath?starts_with("/")>
+    <#return localPath />
+  </#if>
+  <#return ctx.contextPath + "/.resources/b-fy/webresources/images/" + localPath />
+</#function>
+
+<#-- Función de emergencia para detectar contenido "real" -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#-- Función de emergencia para CMS o default -->
+<#function cmsOrDefault cmsValue defaultValue>
+  <#if hasRealContent(cmsValue!'')>
+    <#return cmsValue />
+  <#else>
+    <#return defaultValue />
+  </#if>
+</#function>
+
 <#-- Consolidated original home-hero.ftl content -->
 <#macro homeHero 
 	tagline="Say goodbye to passwords. Say hello to security and frictionless experience." 
@@ -50,23 +87,17 @@
 			@media (min-width:1280px){.max-xl\:text-center{text-align:initial;}}
 		</style>
 	</#if>
-	<#assign _tag = content.tagline!tagline />
-	<#assign _title = content.title!title />
-	<#assign _desc = content.description!description />
-	<#assign _hook = content.hook!hook />
-	<#assign _btn = content.buttonLabel!buttonLabel />
-	<#assign _priv = content.privacyIntro!privacyIntro />
-	<#assign _privHere = content.privacyLinkLabel!privacyLinkLabel />
-	<#assign _secAct = content.securityActivated!securityActivated />
-	<#assign _sysGreet = content.systemGreeting!systemGreeting />
-	<#assign _emailPh = content.emailPlaceholder!emailPlaceholder />
-	<#assign _heroImg = ctx.contextPath + '/.resources/b-fy/webresources/images/hero.webp' />
-	<#if content.heroImage?? && (damfn??)>
-		<#attempt>
-			<#assign _heroImg = (damfn.link(content.heroImage))!_heroImg />
-			<#recover>
-		</#attempt>
-	</#if>
+	<#assign _tag = cmsOrDefault(content.tagline!'', tagline) />
+	<#assign _title = cmsOrDefault(content.title!'', title) />
+	<#assign _desc = cmsOrDefault(content.description!'', description) />
+	<#assign _hook = cmsOrDefault(content.hook!'', hook) />
+	<#assign _btn = cmsOrDefault(content.buttonLabel!'', buttonLabel) />
+	<#assign _priv = cmsOrDefault(content.privacyIntro!'', privacyIntro) />
+	<#assign _privHere = cmsOrDefault(content.privacyLinkLabel!'', privacyLinkLabel) />
+	<#assign _secAct = cmsOrDefault(content.securityActivated!'', securityActivated) />
+	<#assign _sysGreet = cmsOrDefault(content.systemGreeting!'', systemGreeting) />
+	<#assign _emailPh = cmsOrDefault(content.emailPlaceholder!'', emailPlaceholder) />
+	<#assign _heroImg = damOrLocal(content.heroImage!'', '/.resources/b-fy/webresources/images/hero.webp') />
 	<section class="home-hero" aria-label="Hero">
 		<div class="home-hero__text max-xl:text-center">
 			<hgroup>
