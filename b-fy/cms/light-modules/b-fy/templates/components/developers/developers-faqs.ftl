@@ -2,9 +2,9 @@
 <#macro developersFaqs>
 <#assign heading = "FAQs" />
 <#assign faqs = [
-  {"q":"Do you store biometrics?","a":"No, biometrics never leave the user device."},
-  {"q":"How long to integrate?","a":"Typical MVP integration: less than a week."},
-  {"q":"Do you support OpenID?","a":"Yes, we are OpenID certified."}
+  {"q":"¿Qué tiempo toma integrar B-FY?","a":"La integración básica puede realizarse en menos de una hora usando nuestros SDKs."},
+  {"q":"¿Almacenan datos biométricos?","a":"No, los datos biométricos nunca salen del dispositivo del usuario."},
+  {"q":"¿Soportan OpenID?","a":"Sí, estamos certificados OpenID y OAuth2."}
 ] />
 <section class="dev-faqs">
   <style>

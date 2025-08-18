@@ -10,16 +10,16 @@ properties:
   section1Description:
     $type: richText
   section1Image:
-    $type: text
+    $type: reference
   section2Title:
     $type: text
   section2Description:
     $type: richText
   section2Image:
-    $type: text
+    $type: reference
   section3Title:
     $type: text
   section3Description:
     $type: richText
   section3Image:
-    $type: text
+    $type: reference

@@ -10,7 +10,15 @@
 <body class="font-sans antialiased text-neutral-900">
   <#-- Import CMS helpers -->
   <#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms />
-
+  <#-- Ensure damfn is available (fallback import) -->
+  <#if !(damfn??)>
+    <#attempt>
+      <#import "/magnolia-templating-functions/damfn.ftl" as damfn />
+    <#recover>
+      <#-- damfn not available -->
+    </#attempt>
+  </#if>
+  
   <#-- Función de emergencia para detectar contenido "real" -->
   <#function hasRealContent value>
     <#if !value??>
@@ -28,24 +36,14 @@
     </#if>
   </#function>
 
-  <#-- Función simple para URLs de imagen -->
-  <#function damImage imageUrl>
-    <#if imageUrl?? && imageUrl?has_content && imageUrl?is_string>
-      <#local trimmedUrl = imageUrl?trim />
-      <#if trimmedUrl?has_content>
-        <#-- Si es una URL completa, devolverla tal como está -->
-        <#if trimmedUrl?starts_with("http")>
-          <#return trimmedUrl />
-        </#if>
-        
-        <#-- Si es una ruta que empieza con /, devolverla tal como está -->
-        <#if trimmedUrl?starts_with("/")>
-          <#return trimmedUrl />
-        </#if>
-        
-        <#-- Si no tiene prefijo, asumir que es una ruta relativa en webresources -->
-        <#return "${ctx.contextPath}/.resources/b-fy/webresources/" + trimmedUrl />
-      </#if>
+  <#-- Función para resolver imágenes DAM usando la misma lógica de home.ftl -->
+  <#function damImage damNode>
+    <#if damNode?? && (damfn??)>
+      <#attempt>
+        <#return (damfn.link(damNode))!"" />
+      <#recover>
+        <#return "" />
+      </#attempt>
     </#if>
     <#return "" />
   </#function>
@@ -58,8 +56,8 @@
     <#-- Hero section con título principal -->
     <section style="padding: 4rem 1.25rem; text-align: center; background-color: #f8fafc;">
       <div style="max-width: 56rem; margin: 0 auto;">
-        <#assign heroTitle = cmsValue(content.title!'') />
-        <#assign heroDescription = cmsValue(content.description!'') />
+        <#assign heroTitle = cmsValue(content.title!"") />
+        <#assign heroDescription = cmsValue(content.description!"") />
         <#if hasRealContent(heroTitle)>
           <h1 style="font-size: 2.25rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: #1f2937;">
             ${heroTitle}
@@ -87,9 +85,9 @@
               }
             }
           </style>
-          <#assign section1Title = cmsValue(content.section1Title!'') />
-          <#assign section1Description = cmsValue(content.section1Description!'') />
-          <#assign section1ImageUrl = damImage(content.section1Image!'') />
+          <#assign section1Title = cmsValue(content.section1Title!"") />
+          <#assign section1Description = cmsValue(content.section1Description!"") />
+          <#assign section1ImageUrl = damImage(content.section1Image!"") />
           
           <#if hasRealContent(section1Title) || hasRealContent(section1Description) || hasRealContent(section1ImageUrl)>
             <div class="section-01" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
@@ -136,9 +134,9 @@
               }
             }
           </style>
-          <#assign section2Title = cmsValue(content.section2Title!'') />
-          <#assign section2Description = cmsValue(content.section2Description!'') />
-          <#assign section2ImageUrl = damImage(content.section2Image!'') />
+          <#assign section2Title = cmsValue(content.section2Title!"") />
+          <#assign section2Description = cmsValue(content.section2Description!"") />
+          <#assign section2ImageUrl = damImage(content.section2Image!"") />
           
           <#if hasRealContent(section2Title) || hasRealContent(section2Description) || hasRealContent(section2ImageUrl)>
             <div class="section-02" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
@@ -187,9 +185,9 @@
               }
             }
           </style>
-          <#assign section3Title = cmsValue(content.section3Title!'') />
-          <#assign section3Description = cmsValue(content.section3Description!'') />
-          <#assign section3ImageUrl = damImage(content.section3Image!'') />
+          <#assign section3Title = cmsValue(content.section3Title!"") />
+          <#assign section3Description = cmsValue(content.section3Description!"") />
+          <#assign section3ImageUrl = damImage(content.section3Image!"") />
           
           <#if hasRealContent(section3Title) || hasRealContent(section3Description) || hasRealContent(section3ImageUrl)>
             <div class="section-03" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">

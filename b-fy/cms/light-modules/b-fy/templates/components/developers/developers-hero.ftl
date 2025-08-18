@@ -1,13 +1,43 @@
 <#-- Developers Hero Component matching Astro _developers/index.astro exactly -->
+
+<#-- Import CMS helpers and DAM functions OUTSIDE of macro -->
+<#if !(damfn??)>
+  <#attempt>
+    <#import "/magnolia-templating-functions/damfn.ftl" as damfn />
+  <#recover>
+    <#-- damfn not available -->
+  </#attempt>
+</#if>
+
+<#-- Función para detectar contenido real OUTSIDE of macro -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#-- Función para CMS con fallback local OUTSIDE of macro -->
+<#function cmsValueWithFallback cmsContent fallback>
+  <#if hasRealContent(cmsContent!'')>
+    <#return cmsContent />
+  <#else>
+    <#return fallback />
+  </#if>
+</#function>
+
 <#macro developersHero>
-<#assign title = "Easy and seamless integration" />
-<#assign description = "Forget about passwords, complex tokens, or never-ending integrations. We provide everything you need to integrate our solution into your product quickly, securely, and without hassle." />
-<#assign subtitle = "Frictionless security for any stack" />
+
+<#assign title = cmsValueWithFallback(content.title!"", "Construye con B-FY") />
+<#assign description = cmsValueWithFallback(content.description!"", "APIs y SDKs potentes para integrar autenticación biométrica descentralizada") />
+<#assign subtitle = cmsValueWithFallback(content.subtitle!"", "Documentación completa y herramientas para developers") />
+
+<#-- Use fallback features for now - CMS integration will work through defaultValue in dialogs -->
 <#assign features = [
-  {"name":"OpenID / OAuth2","description":"Standards-based integration for identity flows."},
-  {"name":"Client SDKs","description":"Mobile & web libraries to speed implementation."},
-  {"name":"Decentralized biometric model","description":"No central biometric storage to breach."},
-  {"name":"Scalable architecture","description":"Designed for millions of authentications."}
+  {"name":"OpenID / OAuth2","description":"Integración estándar para flujos de identidad."},
+  {"name":"SDKs para clientes","description":"Librerías móviles y web para acelerar implementación."},
+  {"name":"Modelo biométrico descentralizado","description":"Sin almacenamiento biométrico central que comprometer."},
+  {"name":"Arquitectura escalable","description":"Diseñado para millones de autenticaciones."}
 ] />
 
 <section class="dev-hero">

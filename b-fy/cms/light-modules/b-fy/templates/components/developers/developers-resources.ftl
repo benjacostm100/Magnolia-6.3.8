@@ -1,48 +1,57 @@
-<#<#assign tagline = "Resources" />
-<#assign title = "Everything you need" />
-<#assign cards = [
-  {"title":"Quickstart","description":"Spin up an integration in minutes.","cta":"View Quickstart","href":"#"},
-  {"title":"API Reference","description":"Comprehensive endpoint documentation.","cta":"View API Reference","href":"#"},
-  {"title":"SDK Guides","description":"Implement flows on iOS, Android & Web.","cta":"View SDK Guides","href":"#"},
-  {"title":"Security Whitepaper","description":"In-depth architecture & threat model.","cta":"View Security Whitepaper","href":"#"}
-] />elopers Resources Component -->
+<#-- Deveesources Component -->
 <#macro developersResources>
-<#assign tagline = "Developer resources" />
-<#assign title = "Everything you need to integrate B-FY into your system" />
-<#assign cards = [
-  {"title":"Technical integration details","description":"Check out our technical guides with step-by-step instructions for integrating B-FY into your backend, frontend, or mobile systems.","cta":"View technical documentation","href":"${ctx.contextPath}/docs/technical"},
+
+<#assign heading = "Recursos para desarrolladores" />
+<#assign resources = [
+  {"title":"Documentación","desc":"Documentación completa de APIs y SDKs para una integración exitosa.","image":"/images/developers/docs-icon.png"},
+  {"title":"Casos de uso","desc":"Ejemplos prácticos de implementaciones exitosas en diferentes industrias.","image":"/images/developers/cases-icon.png"},
+  {"title":"Soporte técnico","desc":"Equipo especializado disponible para resolver dudas durante la implementación.","image":"/images/developers/support-icon.png"}
+] />
+
+<section class="dev-resources">
   {"title":"Conceptual integration overview","description":"Understand how B-FY’s architecture works and how it fits your products or services from a functional perspective.","cta":"View conceptual documentation","href":"${ctx.contextPath}/docs/conceptual"}
 ] />
+
 <section class="dev-resources">
   <style>
-    .dev-resources { margin: 3.75rem 0; padding: 0 1.25rem; text-align: center; }
-    @media (min-width:640px){ .dev-resources { padding: 0 2.5rem; } }
-    @media (min-width:1024px){ .dev-resources { padding: 0 3.25rem; } }
-    .dev-resources p.tag { padding: 0.625rem 1.25rem; display: inline-block; border-radius: 0.375rem; background-color: #ea580c; line-height: 1.25; color: white; text-transform: uppercase; }
-    @media (min-width:1280px){ .dev-resources p.tag { font-size: 1.25rem; } }
-    .dev-resources h2 { max-width: 50rem; margin: 2.25rem auto 0; font-weight: 700; font-size: 1.875rem; }
+    .dev-resources { padding: 3.75rem 0; }
+    
+    .dev-resources-container { max-width: 1280px; margin: 0 auto; padding: 0 1.25rem; }
+    
+    .dev-resources h2 { text-align: center; margin-bottom: 3rem; font-weight: 700; font-size: 2.25rem; }
     @media (min-width:1280px){ .dev-resources h2 { font-size: 3rem; } }
-    .dev-res-grid { margin-top: 3.75rem; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 3.25rem; }
-    .dev-res-card { width: auto; max-width: 20rem; }
-    .dev-res-card h3 { width: 16rem; margin: 0 auto; font-weight: 700; font-size: 1.25rem; line-height: 1.25; color: #ea580c; text-transform: uppercase; }
-    .dev-res-card p { width: 20rem; margin: 0.75rem auto 1.25rem; line-height: 1.4; }
-    .dev-res-card a { display: inline-flex; gap: 0.375rem; font-size: 1.125rem; color: #ea580c; transition: color 0.2s; text-decoration: underline; text-underline-offset: 0.125rem; }
-    .dev-res-card a:hover { color: #b91c1c; }
-    .dev-help-cta { margin-top: 4.5rem; padding: 0.625rem 1.25rem; display: inline-block; border-radius: 0.375rem; background-color: #ea580c; font-size: 1.25rem; color: white; transition: background-color 0.2s; text-decoration: none; }
-    .dev-help-cta:hover { background-color: #b91c1c; }
+    
+    .dev-resources-grid { display: grid; gap: 1.5rem; }
+    @media (min-width:768px){ .dev-resources-grid { grid-template-columns: repeat(3, 1fr); } }
+    
+    .dev-resource-card { 
+      padding: 2rem; background: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      text-align: center; transition: all 0.3s ease;
+    }
+    .dev-resource-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1); }
+    
+    .dev-resource-image { width: 4rem; height: 4rem; margin: 0 auto 1.5rem; }
+    .dev-resource-image img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .dev-resource-card h3 { margin-bottom: 1rem; font-weight: 700; font-size: 1.25rem; }
+    .dev-resource-card p { color: #6b7280; line-height: 1.625; }
   </style>
-  <p class="tag">${tagline}</p>
-  <h2>${title}</h2>
-  <div class="dev-res-grid">
-    <#list cards as c>
-      <article class="dev-res-card">
-        <h3>${c.title}</h3>
-        <p>${c.description}</p>
-        <a href="${c.href}">${c.cta}</a>
-      </article>
-    </#list>
+
+  <div class="dev-resources-container">
+    <h2>${heading}</h2>
+    
+    <div class="dev-resources-grid">
+      <#list resources as resource>
+        <div class="dev-resource-card">
+          <div class="dev-resource-image">
+            <img src="${resource.image}" alt="${resource.title}" />
+          </div>
+          <h3>${resource.title}</h3>
+          <p>${resource.desc}</p>
+        </div>
+      </#list>
+    </div>
   </div>
-  
-  <a class="dev-help-cta" href="${ctx.contextPath}/contact">Need help?</a>
 </section>
+
 </#macro>

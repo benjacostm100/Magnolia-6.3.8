@@ -1,14 +1,18 @@
 <#-- Developers Details Component matching Astro _developers/Details.astro exactly -->
 <#macro developersDetails>
+
+<#-- Simple fallback assignments following platform-details pattern -->
 <#assign tagline = "Developer-first" />
 <#assign title = "Ship passwordless faster" />
 <#assign subtitle = "APIs built for speed" />
 <#assign description = "Use straightforward endpoints and lightweight SDKs to integrate secure authentication in days, not months." />
+
+<#-- Simple fallback array for items -->
 <#assign items = [
-  {"icon":"api.svg","name":"REST / OpenID","description":"Interoperable and widely supported.","link":""},
-  {"icon":"webhook.svg","name":"Event hooks","description":"React to auth lifecycle events.","link":""},
-  {"icon":"sandbox.svg","name":"Sandbox","description":"Test flows securely before launch.","link":""},
-  {"icon":"logs.svg","name":"Detailed logs","description":"Trace every auth event for audits.","link":""}
+  {"icon":"api.svg","name":"REST / OpenID","description":"Interoperabilidad y soporte amplio.","link":""},
+  {"icon":"webhook.svg","name":"Event hooks","description":"Reacciona a eventos del ciclo de autenticación.","link":""},
+  {"icon":"sandbox.svg","name":"Sandbox","description":"Prueba flujos de forma segura antes del lanzamiento.","link":""},
+  {"icon":"logs.svg","name":"Logs detallados","description":"Rastrea cada evento de autenticación para auditorías.","link":""}
 ] />
 
 <section class="dev-details">

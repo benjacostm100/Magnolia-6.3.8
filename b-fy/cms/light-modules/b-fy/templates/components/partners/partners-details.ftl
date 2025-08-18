@@ -1,7 +1,50 @@
 <#-- Partners Details Component -->
+
+<#-- Import CMS helpers and DAM functions OUTSIDE of macro -->
+<#if !(damfn??)>
+  <#attempt>
+    <#import "/magnolia-templating-functions/damfn.ftl" as damfn />
+  <#recover>
+    <#-- damfn not available -->
+  </#attempt>
+</#if>
+
+<#-- Función para detectar contenido real OUTSIDE of macro -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#-- Función para CMS con fallback local OUTSIDE of macro -->
+<#function cmsValueWithFallback cmsContent fallback>
+  <#if hasRealContent(cmsContent!'')>
+    <#return cmsContent />
+  <#else>
+    <#return fallback />
+  </#if>
+</#function>
+
+<#-- Función para resolver imágenes DAM con fallback local OUTSIDE of macro -->
+<#function damImageWithFallback damNode fallbackPath>
+  <#if damNode?? && (damfn??)>
+    <#attempt>
+      <#assign damUrl = (damfn.link(damNode))!"" />
+      <#if damUrl?has_content>
+        <#return damUrl />
+      </#if>
+    <#recover>
+      <#-- Fallback to local image -->
+    </#recover>
+  </#if>
+  <#return "${ctx.contextPath}/.resources/b-fy/webresources/images/" + fallbackPath />
+</#function>
+
 <#macro partnersDetails>
-<#assign sectionTitle = "Innovation as the driving force behind your success" />
-<#assign sectionDescription = "The B-FY Partner Program is designed for companies and professionals who want to stand out in the market with cutting-edge technology. If you're looking to expand your commercial offering with secure and efficient solutions, now is the ideal time to join." />
+
+<#assign sectionTitle = cmsValueWithFallback(content.details.title!"", "Beneficios de ser partner B-FY") />
+<#assign sectionDescription = cmsValueWithFallback(content.details.description!"", "Descubre las ventajas exclusivas que obtienes al integrar la tecnología B-FY en tu plataforma.") />
 
 <#assign partnerTypes = [
   {

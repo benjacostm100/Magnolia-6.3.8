@@ -1,9 +1,52 @@
 <#-- Partners Hero Component -->
+
+<#-- Import CMS helpers and DAM functions OUTSIDE of macro -->
+<#if !(damfn??)>
+  <#attempt>
+    <#import "/magnolia-templating-functions/damfn.ftl" as damfn />
+  <#recover>
+    <#-- damfn not available -->
+  </#attempt>
+</#if>
+
+<#-- Función para detectar contenido real OUTSIDE of macro -->
+<#function hasRealContent value>
+  <#if !value??>
+    <#return false />
+  </#if>
+  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
+</#function>
+
+<#-- Función para CMS con fallback local OUTSIDE of macro -->
+<#function cmsValueWithFallback cmsContent fallback>
+  <#if hasRealContent(cmsContent!'')>
+    <#return cmsContent />
+  <#else>
+    <#return fallback />
+  </#if>
+</#function>
+
+<#-- Función para resolver imágenes DAM con fallback local OUTSIDE of macro -->
+<#function damImageWithFallback damNode fallbackPath>
+  <#if damNode?? && (damfn??)>
+    <#attempt>
+      <#assign damUrl = (damfn.link(damNode))!"" />
+      <#if damUrl?has_content>
+        <#return damUrl />
+      </#if>
+    <#recover>
+      <#-- Fallback to local image -->
+    </#recover>
+  </#if>
+  <#return "${ctx.contextPath}/.resources/b-fy/webresources/images/" + fallbackPath />
+</#function>
+
 <#macro partnersHero>
-<#assign tagline = "Partner program" />
-<#assign title = "Boost your business with B-FY" />
-<#assign description = "Expand your reach, offer new benefits to your clients, and maximize your profitability with B-FY's advanced solutions in decentralized biometrics, passwordless authentication, and online identity fraud prevention." />
-<#assign heroImage = "partners-hero.webp" /> <#-- matches existing asset -->
+
+<#assign tagline = cmsValueWithFallback(content.tagline!"", "Únete al ecosistema B-FY") />
+<#assign title = cmsValueWithFallback(content.title!"", "Partnerships que transforman la autenticación digital") />
+<#assign description = cmsValueWithFallback(content.description!"", "Conecta con B-FY y ofrece a tus usuarios la experiencia de autenticación biométrica más segura y privada del mercado.") />
+<#assign heroImage = damImageWithFallback(content.image!"", "partners-hero.webp") />
 
 <section style="margin: 3rem 0 5rem; padding: 0 1.25rem; text-align: center;">
   <style>
@@ -68,8 +111,8 @@
       <p class="partners-tagline">${tagline}</p>
       <h1>${title}</h1>
     </hgroup>
-    <img src="${ctx.contextPath}/.resources/b-fy/webresources/images/${heroImage}" 
-         alt="Partner program overview" 
+    <img src="${heroImage}" 
+         alt="${title}" 
          loading="eager" />
     <p>${description}</p>
   </div>

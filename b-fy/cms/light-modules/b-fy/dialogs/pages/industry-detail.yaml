@@ -2,7 +2,7 @@ label: Industry Detail Page
 form:
   $type: tabbedForm
   tabs:
-    main:
+    content:
       label: Content
       fields:
         title:
@@ -13,6 +13,9 @@ form:
           $type: richTextField
           label: Description
           i18n: true
+    section1:
+      label: Section 1
+      fields:
         section1Title:
           $type: textField
           label: Section 1 Title
@@ -22,9 +25,12 @@ form:
           label: Section 1 Description
           i18n: true
         section1Image:
-          $type: textField
-          label: Section 1 Image URL
-          description: "URL or path of the image"
+          $type: damLinkField
+          label: Section 1 Image
+          required: false
+    section2:
+      label: Section 2
+      fields:
         section2Title:
           $type: textField
           label: Section 2 Title
@@ -34,9 +40,12 @@ form:
           label: Section 2 Description
           i18n: true
         section2Image:
-          $type: textField
-          label: Section 2 Image URL
-          description: "URL or path of the image"
+          $type: damLinkField
+          label: Section 2 Image
+          required: false
+    section3:
+      label: Section 3
+      fields:
         section3Title:
           $type: textField
           label: Section 3 Title
@@ -46,6 +55,6 @@ form:
           label: Section 3 Description
           i18n: true
         section3Image:
-          $type: textField
-          label: Section 3 Image URL
-          description: "URL or path of the image"
+          $type: damLinkField
+          label: Section 3 Image
+          required: false
