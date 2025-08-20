@@ -1,22 +1,3 @@
-<#-- Import shared CMS utilities -->
-<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
-
-<#-- Funciones de emergencia inline -->
-<#function hasRealContent value>
-  <#if !value??>
-    <#return false />
-  </#if>
-  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
-</#function>
-
-<#function cmsOrDefault cmsValue defaultValue>
-  <#if hasRealContent(cmsValue!'')>
-    <#return cmsValue />
-  <#else>
-    <#return defaultValue />
-  </#if>
-</#function>
-
 <#-- Consolidated original home-partners.ftl content -->
 
 <#-- Helper functions extracted to top-level (cannot be inside macro) -->
@@ -44,25 +25,13 @@
 			<#assign partnersNode = _children[0] />
 		</#if>
 	</#if>
-	<#assign _fallback = {
-		"tagline":"Discover our partner program",
-		"title":"Be part of the future of omnichannel authentication",
-		"description":"B-FY is looking for strategic partners: integrators, technology providers, consultants. Expand your reach, increase client value and maximize profitability with decentralized biometrics, passwordless authentication, and advanced fraud prevention.",
-		"benefits":["Access to cutting‑edge technology","Incentive structure","Technical support and specialized training","Marketing materials and resources"]
-	} />
-	<#assign _tagline = cmsOrDefault(partnersNode.tagline!'', _fallback.tagline) />
-	<#assign _title = cmsOrDefault(partnersNode.title!'', _fallback.title) />
-	<#assign _desc = cmsOrDefault(partnersNode.description!'', _fallback.description) />
-	<#assign benefits = [] />
-	<#if partnersNode.benefits?has_content>
-		<#assign benefits = partnersNode.benefits?children />
-	</#if>
-	<#if benefits?size == 0>
-		<#assign benefits = [] />
-		<#list _fallback.benefits as fb>
-			<#assign benefits = benefits + [{"description": fb}] />
-		</#list>
-	</#if>
+        <#assign _tagline = partnersNode.tagline!'' />
+        <#assign _title = partnersNode.title!'' />
+        <#assign _desc = partnersNode.description!'' />
+        <#assign benefits = [] />
+        <#if partnersNode.benefits?has_content>
+                <#assign benefits = partnersNode.benefits?children />
+        </#if>
 	<#assign imgLink = "" />
 	<#assign defaultDamPartnersPath = "/images/b-fy-participate-identity-week-amsterdam-premier-event-identity-trust.webp" />
 	<#if partnersNode.image?has_content>

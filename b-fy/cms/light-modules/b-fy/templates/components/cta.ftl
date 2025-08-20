@@ -1,22 +1,3 @@
-<#-- Import shared CMS utilities -->
-<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
-
-<#-- Funciones de emergencia inline para evitar errores de runtime -->
-<#function hasRealContent value>
-  <#if !value??>
-    <#return false />
-  </#if>
-  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
-</#function>
-
-<#function cmsOrDefault cmsValue defaultValue>
-  <#if hasRealContent(cmsValue!'')>
-    <#return cmsValue />
-  <#else>
-    <#return defaultValue />
-  </#if>
-</#function>
-
 <#-- Helper functions moved to top-level (can't nest macro/function definitions) -->
 <#function webResourcePath path>
   <#if path?starts_with("/")>
@@ -35,16 +16,7 @@
 </#function>
 
 <#-- Universal Call To Action component -->
-<#macro callToAction 
-    tagline="" 
-    title="Experience the new era of authentication." 
-    description="Discover how B-FY can transform your company's security. Request a demo or contact us for more information." 
-    primaryLabel="Get a demo" 
-    primaryLink="${ctx.contextPath}/contact" 
-    secondaryLabel="Contact us" 
-    secondaryLink="${ctx.contextPath}/contact" 
-    backgroundNode=""
->
+<#macro callToAction>
   <#-- Inject styles only once per page -->
   <#if !CTA_STYLE_INCLUDED??>
     <#global CTA_STYLE_INCLUDED = true />
@@ -83,15 +55,15 @@
   </#if>
 
   <#-- Page-level direct property fallbacks (e.g., ctaTitle, ctaDescription, etc.) allow simple dialog fields without nested nodes -->
-  <#assign _tagline      = cmsOrDefault(cmsOrDefault(ctaNode.tagline!'', content.ctaTagline!''), tagline) />
-  <#assign _title        = cmsOrDefault(cmsOrDefault(ctaNode.title!'', content.ctaTitle!''), title) />
-  <#assign _description  = cmsOrDefault(cmsOrDefault(ctaNode.description!'', content.ctaDescription!''), description) />
-  <#assign _pLabel       = cmsOrDefault(cmsOrDefault(ctaNode.primaryButtonLabel!'', content.ctaPrimaryButtonLabel!''), primaryLabel) />
-  <#assign _pLink        = cmsOrDefault(cmsOrDefault(ctaNode.primaryButtonLink!'', content.ctaPrimaryButtonLink!''), primaryLink) />
-  <#assign _sLabel       = cmsOrDefault(cmsOrDefault(ctaNode.secondaryButtonLabel!'', content.ctaSecondaryButtonLabel!''), secondaryLabel) />
-  <#assign _sLink        = cmsOrDefault(cmsOrDefault(ctaNode.secondaryButtonLink!'', content.ctaSecondaryButtonLink!''), secondaryLink) />
+  <#assign _tagline      = ctaNode.tagline!content.ctaTagline!'' />
+  <#assign _title        = ctaNode.title!content.ctaTitle!'' />
+  <#assign _description  = ctaNode.description!content.ctaDescription!'' />
+  <#assign _pLabel       = ctaNode.primaryButtonLabel!content.ctaPrimaryButtonLabel!'' />
+  <#assign _pLink        = ctaNode.primaryButtonLink!content.ctaPrimaryButtonLink!'' />
+  <#assign _sLabel       = ctaNode.secondaryButtonLabel!content.ctaSecondaryButtonLabel!'' />
+  <#assign _sLink        = ctaNode.secondaryButtonLink!content.ctaSecondaryButtonLink!'' />
 
-  <#-- Background resolution precedence: authored node background > backgroundNode param > page-level property (ctaBackground) > default asset -->
+  <#-- Background resolution precedence: authored node background > page-level property (ctaBackground) > default asset -->
   <#assign _bg = '' />
   <#-- Background image resolution with robust DAM handling (uses top-level helper functions) -->
 
@@ -101,9 +73,6 @@
   <#-- Try content-specific background -->
   <#if ctaNode.background?? && (damfn??)>
     <#attempt><#assign _bg = damfn.link(ctaNode.background) /><#recover></#attempt>
-  </#if>
-  <#if !_bg?has_content && backgroundNode?? && (damfn??)>
-    <#attempt><#assign _bg = damfn.link(backgroundNode) /><#recover></#attempt>
   </#if>
   <#if !_bg?has_content && content.ctaBackground?? && (damfn??)>
     <#attempt><#assign _bg = damfn.link(content.ctaBackground) /><#recover></#attempt>
@@ -138,8 +107,4 @@
 </#macro>
 
 <#-- CTA instance with CMS content support -->
-<#if content??>
-  <@callToAction />
-<#else>
-  <@callToAction />
-</#if>
+<@callToAction />
