@@ -9,24 +9,59 @@ form:
           $type: textField
           label: Tagline
           i18n: true
+          defaultValue: "Say goodbye to passwords. Say hello to security and frictionless experience."
         title:
           $type: textField
           label: Title
           i18n: true
+          defaultValue: "The passwordless biometric solution to authenticate people and protect their privacy"
         description:
           $type: textField
           label: Description
           rows: 3
           i18n: true
+          defaultValue: "B-FY transforms authentication with its decentralized biometric identification solution. It guarantees secure, seamless experiences for users, increases customer retention, trust, and eliminates online ID fraud."
         hook:
           $type: textField
           label: Hook
           rows: 2
           i18n: true
+          defaultValue: "Identity fraud represents more than 65% of all cyberattacks. With the advent of AI, this percentage is only increasing."
         heroImage:
           $type: damLinkField
           label: Hero Image
           required: false
+          defaultValue: "/images/b-fys-global-launch-identity-week-amsterdam.webp"
+        buttonLabel:
+          $type: textField
+          label: Button Label
+          i18n: true
+          defaultValue: "Request demo"
+        privacyIntro:
+          $type: textField
+          label: Privacy Intro
+          i18n: true
+          defaultValue: "Review our privacy policy"
+        privacyLinkLabel:
+          $type: textField
+          label: Privacy Link Label
+          i18n: true
+          defaultValue: "here"
+        securityActivated:
+          $type: textField
+          label: Security Activated Text
+          i18n: true
+          defaultValue: "Security activated"
+        systemGreeting:
+          $type: textField
+          label: System Greeting
+          i18n: true
+          defaultValue: "System secure greeting"
+        emailPlaceholder:
+          $type: textField
+          label: Email Placeholder
+          i18n: true
+          defaultValue: "Enter your email..."
     platform:
       label: Platform
       fields:
@@ -42,15 +77,54 @@ form:
               $type: textField
               label: Tagline
               i18n: true
+              defaultValue: "Authenticate the real person behind the digital identity"
             title:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "Take back control over the security of your business, your operations and your revenue"
             description:
               $type: textField
               label: Description
               rows: 5
               i18n: true
+              defaultValue: "B-FY goes beyond passwords and tokens. It allows you to authenticate the real person behind every transaction, access or interaction — securely, in compliance with regulations, and without storing personal or biometric data."
+            hook:
+              $type: textField
+              label: Hook
+              rows: 3
+              i18n: true
+              defaultValue: "Identity fraud represents more than 65% of all cyberattacks. With the advent of AI, this percentage is only increasing."
+            features:
+              $type: jcrMultiField
+              label: Features
+              field:
+                $type: compositeField
+                label: Feature
+                properties:
+                  title:
+                    $type: textField
+                    label: Title
+                    i18n: true
+                    defaultValue: "Identify people, not data"
+                  tagline:
+                    $type: textField
+                    label: Tagline
+                    i18n: true
+                    defaultValue: "Customer authentication"
+                  description:
+                    $type: textField
+                    label: Description
+                    rows: 4
+                    i18n: true
+                    defaultValue: "Our passwordless solution offers a secure, user-friendly and frictionless experience, eliminating the complexity of traditional identification."
+                  link:
+                    $type: textField
+                    label: Link
+                    defaultValue: "/platform#customer-authentication"
+                  icon:
+                    $type: damLinkField
+                    label: Icon
     industries:
       label: Industries
       fields:
@@ -66,15 +140,18 @@ form:
               $type: textField
               label: Tagline
               i18n: true
+              defaultValue: "B‑FY in action"
             title:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "A solution that adapts to every sector"
             description:
               $type: textField
               label: Description
               rows: 3
               i18n: true
+              defaultValue: "Our technology meets the demands of different industries. B‑FY protects institutions from all types of online identity fraud, including growing attack vectors such as AI, APP, ATO, and bots."
             items:
               $type: jcrMultiField
               label: Industry Items
@@ -86,14 +163,17 @@ form:
                     $type: textField
                     label: Name
                     i18n: true
+                    defaultValue: "Financial Services"
                   summary:
                     $type: textField
                     label: Summary
                     rows: 5
                     i18n: true
+                    defaultValue: "Stop ATO and APP threats, MFA bombing, and other attacks and data breaches with secure decentralized biometric authentication."
                   link:
                     $type: textField
                     label: Link (URL or anchor)
+                    defaultValue: "/industries#financial"
                   thumbnail:
                     $type: damLinkField
                     label: Thumbnail Image
@@ -112,11 +192,13 @@ form:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "Testimonials"
             description:
               $type: textField
               label: Description
               rows: 5
               i18n: true
+              defaultValue: "What our clients say about B-FY."
         testimonials:
           $type: jcrMultiField
           label: Properties
@@ -132,10 +214,12 @@ form:
               name:
                 $type: textField
                 label: Name
+                defaultValue: "Client name"
               position:
                 $type: textField
                 label: Position
                 i18n: true
+                defaultValue: "Client position"
     partners:
       label: Partners
       fields:
@@ -150,19 +234,23 @@ form:
             image:
               $type: damLinkField
               label: Image
+              defaultValue: "/images/b-fy-participate-identity-week-amsterdam-premier-event-identity-trust.webp"
             tagline:
               $type: textField
               label: Tagline
               i18n: true
+              defaultValue: "Discover our partner program"
             title:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "Be part of the future of omnichannel authentication"
             description:
               $type: textField
               label: Description
               rows: 5
               i18n: true
+              defaultValue: "B-FY is looking for strategic partners: integrators, technology providers, consultants. Expand your reach, increase client value and maximize profitability with decentralized biometrics, passwordless authentication, and advanced fraud prevention."
             benefits:
               $type: jcrMultiField
               label: Benefits
@@ -177,6 +265,7 @@ form:
                     $type: textField
                     label: Description
                     i18n: true
+                    defaultValue: "Access to cutting‑edge technology"
     callToAction:
       label: Call To Action
       fields:
@@ -192,32 +281,40 @@ form:
               $type: textField
               label: Tagline
               i18n: true
+              defaultValue: "Experience the new era of authentication."
             title:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "Discover how B-FY can transform your company’s security."
             description:
               $type: textField
               label: Description
               rows: 5
               i18n: true
+              defaultValue: "Request a demo or contact us for more information."
             primaryButtonLabel:
               $type: textField
               label: Primary Button Label
               i18n: true
+              defaultValue: "Get a demo"
             primaryButtonLink:
               $type: textField
               label: Primary Button Link
+              defaultValue: "/contact"
             secondaryButtonLabel:
               $type: textField
               label: Secondary Button Label
               i18n: true
+              defaultValue: "Contact us"
             secondaryButtonLink:
               $type: textField
               label: Secondary Button Link
+              defaultValue: "/contact"
             background:
               $type: damLinkField
               label: Background Image
+              defaultValue: "/images/b-fy-innovative-secure-alternative-meet-aepd-demands.webp"
     newsletter:
       label: Newsletter
       fields:
@@ -233,11 +330,23 @@ form:
               $type: textField
               label: Title
               i18n: true
+              defaultValue: "Subscribe to our Newsletter"
             description:
               $type: textField
               label: Description
               rows: 3
               i18n: true
+              defaultValue: "Receive the latest updates on digital identity, security and authentication innovation."
+            buttonLabel:
+              $type: textField
+              label: Button Label
+              i18n: true
+              defaultValue: "Request a demo"
+            emailPlaceholder:
+              $type: textField
+              label: Email Placeholder
+              i18n: true
+              defaultValue: "Enter your email"
     assets:
       label: Assets
       fields:
@@ -251,10 +360,12 @@ form:
               image:
                 $type: damLinkField
                 label: Image
+                defaultValue: "/images/iso-9001.svg"
               alt:
                 $type: textField
                 label: Alt
                 i18n: true
+                defaultValue: "ISO 9001"
         logos:
           $type: jcrMultiField
           label: Logos
@@ -265,7 +376,9 @@ form:
               logo:
                 $type: damLinkField
                 label: Image
+                defaultValue: "/images/logo-placeholder.svg"
               alt:
                 $type: textField
                 label: Alt
                 i18n: true
+                defaultValue: "Partner logo"
