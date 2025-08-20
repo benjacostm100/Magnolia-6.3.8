@@ -1,5 +1,0 @@
-title: Healthcare Services
-renderType: freemarker
-templateScript: /b-fy/templates/pages/industry-detail/healthcare-services.ftl
-dialog: b-fy:pages/industry-detail/healthcare-services
-visible: true

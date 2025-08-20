@@ -1,5 +1,0 @@
-title: Employee Authentication
-renderType: freemarker
-templateScript: /b-fy/templates/pages/platform-details/employee-authentication.ftl
-dialog: b-fy:pages/platform-details/employee-authentication
-visible: true

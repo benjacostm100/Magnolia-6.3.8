@@ -1,5 +1,0 @@
-title: Regulatory Compliance
-renderType: freemarker
-templateScript: /b-fy/templates/pages/platform-details/regulatory-compliance.ftl
-dialog: b-fy:pages/platform-details/regulatory-compliance
-visible: true

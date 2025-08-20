@@ -1,6 +1,0 @@
-title: Contact Page
-properties:
-  title:
-    type: string
-  description:
-    type: string

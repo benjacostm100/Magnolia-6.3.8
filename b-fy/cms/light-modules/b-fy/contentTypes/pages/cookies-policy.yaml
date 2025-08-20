@@ -1,7 +1,0 @@
-label: Cookies Policy Page
-workspace: website
-nodeType: mgnl:page
-properties:
-  content:
-    $type: richText
-    required: true

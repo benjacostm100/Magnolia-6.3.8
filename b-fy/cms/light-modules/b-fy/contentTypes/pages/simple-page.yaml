@@ -1,8 +1,0 @@
-# light-modules/b-fy/contentTypes/pages/simple-page.yaml
-title: Simple Page
-properties:
-  title:
-    type: string
-  text:
-    type: string
-    $type: html  # ← Necesario para richText
