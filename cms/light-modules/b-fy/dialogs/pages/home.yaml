@@ -1,0 +1,391 @@
+label: Home
+form:
+  $type: tabbedForm
+  tabs:
+    - name: page
+      label: Properties
+      fields:
+        - name: tagline
+          $type: textField
+          label: Tagline
+          i18n: true
+          defaultValue: "Say goodbye to passwords. Say hello to security and frictionless experience."
+        - name: title
+          $type: textField
+          label: Title
+          i18n: true
+          defaultValue: "The passwordless biometric solution to authenticate people and protect their privacy"
+        - name: description
+          $type: textAreaField
+          label: Description
+          rows: 3
+          i18n: true
+          defaultValue: "B-FY transforms authentication with its decentralized biometric identification solution. It guarantees secure, seamless experiences for users, increases customer retention, trust, and eliminates online ID fraud."
+        - name: hook
+          $type: textAreaField
+          label: Hook
+          rows: 2
+          i18n: true
+          defaultValue: "Identity fraud represents more than 65% of all cyberattacks. With the advent of AI, this percentage is only increasing."
+        - name: heroImage
+          $type: damLinkField
+          label: Hero Image
+          required: false
+          defaultValue: "/images/b-fys-global-launch-identity-week-amsterdam.webp"
+        - name: buttonLabel
+          $type: textField
+          label: Button Label
+          i18n: true
+          defaultValue: "Request demo"
+        - name: privacyIntro
+          $type: textField
+          label: Privacy Intro
+          i18n: true
+          defaultValue: "Review our privacy policy"
+        - name: privacyLinkLabel
+          $type: textField
+          label: Privacy Link Label
+          i18n: true
+          defaultValue: "here"
+        - name: securityActivated
+          $type: textField
+          label: Security Activated Text
+          i18n: true
+          defaultValue: "Security activated"
+        - name: systemGreeting
+          $type: textField
+          label: System Greeting
+          i18n: true
+          defaultValue: "System secure greeting"
+        - name: emailPlaceholder
+          $type: textField
+          label: Email Placeholder
+          i18n: true
+          defaultValue: "Enter your email..."
+
+    - name: platform
+      label: Platform
+      fields:
+        - name: platform
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: tagline
+              $type: textField
+              label: Tagline
+              i18n: true
+              defaultValue: "Authenticate the real person behind the digital identity"
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "Take back control over the security of your business, your operations and your revenue"
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 5
+              i18n: true
+              defaultValue: "B-FY goes beyond passwords and tokens. It allows you to authenticate the real person behind every transaction, access or interaction — securely, in compliance with regulations, and without storing personal or biometric data."
+            - name: hook
+              $type: textAreaField
+              label: Hook
+              rows: 3
+              i18n: true
+              defaultValue: "Identity fraud represents more than 65% of all cyberattacks. With the advent of AI, this percentage is only increasing."
+            - name: features
+              $type: jcrMultiField
+              label: Features
+              field:
+                $type: compositeField
+                label: Feature
+                fields:
+                  - name: title
+                    $type: textField
+                    label: Title
+                    i18n: true
+                    defaultValue: "Identify people, not data"
+                  - name: tagline
+                    $type: textField
+                    label: Tagline
+                    i18n: true
+                    defaultValue: "Customer authentication"
+                  - name: description
+                    $type: textAreaField
+                    label: Description
+                    rows: 4
+                    i18n: true
+                    defaultValue: "Our passwordless solution offers a secure, user-friendly and frictionless experience, eliminating the complexity of traditional identification."
+                  - name: link
+                    $type: textField
+                    label: Link
+                    defaultValue: "/platform#customer-authentication"
+                  - name: icon
+                    $type: damLinkField
+                    label: Icon
+
+    - name: industries
+      label: Industries
+      fields:
+        - name: industries
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: tagline
+              $type: textField
+              label: Tagline
+              i18n: true
+              defaultValue: "B-FY in action"
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "A solution that adapts to every sector"
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 3
+              i18n: true
+              defaultValue: "Our technology meets the demands of different industries. B-FY protects institutions from all types of online identity fraud, including growing attack vectors such as AI, APP, ATO, and bots."
+            - name: items
+              $type: jcrMultiField
+              label: Industry Items
+              field:
+                $type: compositeField
+                label: Industry
+                fields:
+                  - name: name
+                    $type: textField
+                    label: Name
+                    i18n: true
+                    defaultValue: "Financial Services"
+                  - name: summary
+                    $type: textAreaField
+                    label: Summary
+                    rows: 5
+                    i18n: true
+                    defaultValue: "Stop ATO and APP threats, MFA bombing, and other attacks and data breaches with secure decentralized biometric authentication."
+                  - name: link
+                    $type: textField
+                    label: Link (URL or anchor)
+                    defaultValue: "/industries#financial"
+                  - name: thumbnail
+                    $type: damLinkField
+                    label: Thumbnail Image
+
+    - name: testimonials
+      label: Testimonials
+      fields:
+        - name: testimonialsConfig
+          $type: compositeField
+          label: Section Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "Testimonials"
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 5
+              i18n: true
+              defaultValue: "What our clients say about B-FY."
+        - name: testimonials
+          $type: jcrMultiField
+          label: Properties
+          field:
+            $type: compositeField
+            label: Client
+            fields:
+              - name: testimonial
+                $type: textAreaField
+                label: Testimonial
+                rows: 8
+                i18n: true
+              - name: name
+                $type: textField
+                label: Name
+                defaultValue: "Client name"
+              - name: position
+                $type: textField
+                label: Position
+                i18n: true
+                defaultValue: "Client position"
+
+    - name: partners
+      label: Partners
+      fields:
+        - name: partners
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: image
+              $type: damLinkField
+              label: Image
+              defaultValue: "/images/b-fy-participate-identity-week-amsterdam-premier-event-identity-trust.webp"
+            - name: tagline
+              $type: textField
+              label: Tagline
+              i18n: true
+              defaultValue: "Discover our partner program"
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "Be part of the future of omnichannel authentication"
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 5
+              i18n: true
+              defaultValue: "B-FY is looking for strategic partners: integrators, technology providers, consultants. Expand your reach, increase client value and maximize profitability with decentralized biometrics, passwordless authentication, and advanced fraud prevention."
+            - name: benefits
+              $type: jcrMultiField
+              label: Benefits
+              field:
+                $type: compositeField
+                label: Benefit
+                fields:
+                  - name: icon
+                    $type: damLinkField
+                    label: Icon
+                  - name: description
+                    $type: textField
+                    label: Description
+                    i18n: true
+                    defaultValue: "Access to cutting-edge technology"
+
+    - name: callToAction
+      label: Call To Action
+      fields:
+        - name: cta
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: tagline
+              $type: textField
+              label: Tagline
+              i18n: true
+              defaultValue: "Experience the new era of authentication."
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "Discover how B-FY can transform your company’s security."
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 5
+              i18n: true
+              defaultValue: "Request a demo or contact us for more information."
+            - name: primaryButtonLabel
+              $type: textField
+              label: Primary Button Label
+              i18n: true
+              defaultValue: "Get a demo"
+            - name: primaryButtonLink
+              $type: textField
+              label: Primary Button Link
+              defaultValue: "/contact"
+            - name: secondaryButtonLabel
+              $type: textField
+              label: Secondary Button Label
+              i18n: true
+              defaultValue: "Contact us"
+            - name: secondaryButtonLink
+              $type: textField
+              label: Secondary Button Link
+              defaultValue: "/contact"
+            - name: background
+              $type: damLinkField
+              label: Background Image
+              defaultValue: "/images/b-fy-innovative-secure-alternative-meet-aepd-demands.webp"
+
+    - name: newsletter
+      label: Newsletter
+      fields:
+        - name: newsletter
+          $type: compositeField
+          label: Properties
+          layout:
+            $type: stacked
+          itemProvider:
+            $type: jcrChildNodeProvider
+          fields:
+            - name: title
+              $type: textField
+              label: Title
+              i18n: true
+              defaultValue: "Subscribe to our Newsletter"
+            - name: description
+              $type: textAreaField
+              label: Description
+              rows: 3
+              i18n: true
+              defaultValue: "Receive the latest updates on digital identity, security and authentication innovation."
+            - name: buttonLabel
+              $type: textField
+              label: Button Label
+              i18n: true
+              defaultValue: "Request a demo"
+            - name: emailPlaceholder
+              $type: textField
+              label: Email Placeholder
+              i18n: true
+              defaultValue: "Enter your email"
+
+    - name: assets
+      label: Assets
+      fields:
+        - name: certifications
+          $type: jcrMultiField
+          label: Certifications
+          field:
+            $type: compositeField
+            label: Certification
+            fields:
+              - name: image
+                $type: damLinkField
+                label: Image
+                defaultValue: "/images/iso-9001.svg"
+              - name: alt
+                $type: textField
+                label: Alt
+                i18n: true
+                defaultValue: "ISO 9001"
+        - name: logos
+          $type: jcrMultiField
+          label: Logos
+          field:
+            $type: compositeField
+            label: Logo
+            fields:
+              - name: logo
+                $type: damLinkField
+                label: Image
+                defaultValue: "/images/logo-placeholder.svg"
+              - name: alt
+                $type: textField
+                label: Alt
+                i18n: true
+                defaultValue: "Partner logo"

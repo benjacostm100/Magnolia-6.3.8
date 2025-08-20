@@ -1,0 +1,32 @@
+# Magnolia / CMS
+cms/apache-tomcat/
+cms/node_modules/
+cms/target/
+cms/logs/
+cms/data/
+cms/repo-*/
+cms/.magnolia/
+cms/mgnl.error.log
+
+# Node / Astro / Vite
+node_modules/
+dist/
+build/
+.astro/
+.next/
+.cache/
+
+# Lockfiles alternativos
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+
+# Entorno
+.env
+.env.local
+
+# Sistema / IDE
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+.idea/
