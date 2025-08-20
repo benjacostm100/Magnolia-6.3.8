@@ -1,29 +1,5 @@
-<#-- Import shared CMS utilities -->
-<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
-
-<#-- Funciones de emergencia inline -->
-<#function hasRealContent value>
-  <#if !value??>
-    <#return false />
-  </#if>
-  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
-</#function>
-
-<#function cmsOrDefault cmsValue defaultValue>
-  <#if hasRealContent(cmsValue!'')>
-    <#return cmsValue />
-  <#else>
-    <#return defaultValue />
-  </#if>
-</#function>
-
 <#-- Consolidated original home-platform.ftl content -->
-<#macro homePlatform 
-	tagline="Authenticate the real person behind the digital identity"
-	title="Take back control over the security of your business, your operations and your revenue"
-	description="B-FY goes beyond passwords and tokens. It allows you to authenticate the real person behind every transaction, access or interaction — securely, in compliance with regulations, and without storing personal or biometric data."
-	hook="Identity fraud represents more than 65% of all cyberattacks. With the advent of AI, this percentage is only increasing."
->
+<#macro homePlatform>
 	<#if !HOME_PLATFORM_STYLE_INCLUDED??>
 		<#global HOME_PLATFORM_STYLE_INCLUDED = true />
 		<style>
@@ -54,36 +30,29 @@
 			.platform__arrow{width:11px;height:auto;}
 		</style>
 	</#if>
-	<#assign fallbackFeatures = [
-		{"title":"Identify people, not data","tagline":"Customer authentication","description":"Our passwordless solution offers a secure, user-friendly and frictionless experience, eliminating the complexity of traditional identification.","link":"/platform#customer-authentication"},
-		{"title":"Secure access in any environment","tagline":"Employee authentication","description":"Put an end to all forms of online fraud, including bots, AI use, phishing and other emerging attack vectors that are causing irreparable damage to users and institutions alike.","link":"/platform#employee-authentication"},
-		{"title":"Your phone is your key","tagline":"User-controlled biometrics","description":"With B-FY, biometrics always remain under the user's control, using the native biometric capabilities of their mobile device to ensure secure authentication of the legitimate user.","link":"/platform#user-controlled-biometrics"},
-		{"title":"Prevents identity impersonation","tagline":"Effective against ATO, AI-driven fraud and phishing","description":"B-FY is the most effective solution against online identity fraud. It provides strong protection against account takeover (ATO), phishing attacks, and threats driven by generative AI.","link":"/platform#ato-protection"},
-		{"title":"Privacy ensured","tagline":"Compliance","description":"B-FY complies with all national and European data privacy regulations by using native, secure and offline-protected biometrics stored only on the user’s mobile device.","link":"/platform#compliance"},
-		{"title":"Aligned with Zero Trust","tagline":"Decentralized authentication","description":"Our decentralized biometric approach gives users full control over their biometric information, ensuring it never leaves their mobile device and eliminating the risks associated with centralized data storage.","link":"/platform#decentralized-authentication"}
-	] />
-	<#assign _platform = {} />
-	<#if content.platform??>
-		<#assign _platformChildren = (content.platform?children)![] />
-		<#if _platformChildren?size gt 0>
-			<#assign _platform = _platformChildren[0] />
-		</#if>
-	</#if>
-	<#assign _tag = cmsOrDefault(_platform.tagline!'', tagline) />
-	<#assign _title = cmsOrDefault(_platform.title!'', title) />
-	<#assign _desc = cmsOrDefault(_platform.description!'', description) />
-	<#assign featureList = fallbackFeatures />
-	<#if _platform.features?has_content>
-		<#assign featureList = _platform.features />
-	</#if>
-	<#import "/b-fy/templates/components/util/icons.ftl" as ic />
-	<section class="platform" aria-label="Platform overview">
-		<hgroup class="text-center">
-			<p class="platform__tag">${_tag}</p>
-			<h2 class="platform__title">${_title}</h2>
-		</hgroup>
-		<p class="platform__desc">${_desc}</p>
-		<p class="platform__hook">${hook}</p>
+        <#assign _platform = {} />
+        <#if content.platform??>
+                <#assign _platformChildren = (content.platform?children)![] />
+                <#if _platformChildren?size gt 0>
+                        <#assign _platform = _platformChildren[0] />
+                </#if>
+        </#if>
+        <#assign _tag = _platform.tagline!'' />
+        <#assign _title = _platform.title!'' />
+        <#assign _desc = _platform.description!'' />
+        <#assign _hook = _platform.hook!'' />
+        <#assign featureList = [] />
+        <#if _platform.features?has_content>
+                <#assign featureList = _platform.features />
+        </#if>
+        <#import "/b-fy/templates/components/util/icons.ftl" as ic />
+        <section class="platform" aria-label="Platform overview">
+                <hgroup class="text-center">
+                        <p class="platform__tag">${_tag}</p>
+                        <h2 class="platform__title">${_title}</h2>
+                </hgroup>
+                <p class="platform__desc">${_desc}</p>
+                <p class="platform__hook">${_hook}</p>
 		<div class="platform__grid">
 			<#list featureList as f>
 				<#assign _icon = f.icon!'' />
