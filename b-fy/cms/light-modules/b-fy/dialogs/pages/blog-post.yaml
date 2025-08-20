@@ -1,0 +1,12 @@
+label: Blog Post Page
+dialog: b-fy:pages/blog-post
+form:
+  properties:
+    title:
+      $type: textField
+      label: Title
+      i18n: true
+    content:
+      $type: richTextField
+      label: Content
+      i18n: true
