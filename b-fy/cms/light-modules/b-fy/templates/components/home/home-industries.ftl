@@ -1,28 +1,5 @@
-<#-- Import shared CMS utilities -->
-<#import "/b-fy/templates/components/util/cms-helpers.ftl" as cms>
-
-<#-- Funciones de emergencia inline -->
-<#function hasRealContent value>
-  <#if !value??>
-    <#return false />
-  </#if>
-  <#return (value?has_content && value?is_string && value?trim != '') || (value?is_hash) />
-</#function>
-
-<#function cmsOrDefault cmsValue defaultValue>
-  <#if hasRealContent(cmsValue!'')>
-    <#return cmsValue />
-  <#else>
-    <#return defaultValue />
-  </#if>
-</#function>
-
 <#-- Consolidated original home-industries.ftl content -->
-<#macro homeIndustries 
-	tagline="B‑FY in action"
-	title="A solution that adapts to every sector"
-	description="Our technology meets the demands of different industries. B‑FY protects institutions from all types of online identity fraud, including growing attack vectors such as AI, APP, ATO, and bots."
->
+<#macro homeIndustries>
 	<#if !HOME_INDUSTRIES_STYLE_INCLUDED??>
 		<#global HOME_INDUSTRIES_STYLE_INCLUDED = true />
 		<style>
@@ -53,47 +30,37 @@
 			.industries__btn svg{width:26px;height:auto;}
 		</style>
 	</#if>
-	<#assign fallbackIndustryItems = [
-		{"name":"Financial Services","summary":"Stop ATO and APP threats, MFA bombing, and other attacks and data breaches with B-FY’s secure, decentralized biometric authentication. Balance regulatory compliance and user experience with strong security measures that stop all forms of online identity fraud.","link":"/industries#financial"},
-		{"name":"Transport & Logistics","summary":"Meet all sector-specific regulatory requirements while offering a seamless user experience with B-FY’s decentralized, passwordless-by-design solution. Eliminate financial fraud stemming from identity theft caused by both internal and external actors.","link":"/industries#transport"},
-		{"name":"Education","summary":"Protect students, teachers, and administrative staff against ransomware, data breaches, and online financial fraud in payments, student loans, grants, and scholarships. Improve user experience by streamlining enrollment and ensure only authorized individuals access restricted areas with B-FY.","link":"/industries#education"},
-		{"name":"Healthcare Services","summary":"Comply with all privacy, quality, and security regulations, including HIPAA and GDPR. Deliver a frictionless user experience with B-FY’s decentralized, passwordless-by-design solution. We protect healthcare institutions and their users against medical identity theft, insurance fraud, and data breaches.","link":"/industries#healthcare"}
-	] />
-	<#assign _industries = {} />
-	<#if content.industries??>
-		<#assign _indChildren = (content.industries?children)![] />
-		<#if _indChildren?size gt 0>
-			<#assign _industries = _indChildren[0] />
-		</#if>
-	</#if>
-	<#assign _tag = cmsOrDefault(_industries.tagline!'', tagline) />
-	<#assign _title = cmsOrDefault(_industries.title!'', title) />
-	<#assign _desc = cmsOrDefault(_industries.description!'', description) />
-	<#assign itemList = fallbackIndustryItems />
-	<#assign authoredItems = [] />
-	<#if _industries?has_content>
-		<#if _industries.items?has_content && _industries.items?is_sequence>
-			<#assign authoredItems = _industries.items />
-		<#elseif _industries.items?has_content && _industries.items?is_hash>
-			<#if _industries.items?children?has_content>
-				<#assign authoredItems = _industries.items?children />
-			</#if>
-		</#if>
-		<#if authoredItems?size == 0>
-			<#assign tmp = [] />
-			<#list _industries?children as ch>
-				<#if ch.@name?starts_with('items')>
-					<#assign tmp += [ch] />
-				</#if>
-			</#list>
-			<#if tmp?size gt 0>
-				<#assign authoredItems = tmp />
-			</#if>
-		</#if>
-	</#if>
-	<#if authoredItems?size gt 0>
-		<#assign itemList = authoredItems />
-	</#if>
+        <#assign _industries = {} />
+        <#if content.industries??>
+                <#assign _indChildren = (content.industries?children)![] />
+                <#if _indChildren?size gt 0>
+                        <#assign _industries = _indChildren[0] />
+                </#if>
+        </#if>
+        <#assign _tag = _industries.tagline!'' />
+        <#assign _title = _industries.title!'' />
+        <#assign _desc = _industries.description!'' />
+        <#assign itemList = [] />
+        <#if _industries?has_content>
+                <#if _industries.items?has_content && _industries.items?is_sequence>
+                        <#assign itemList = _industries.items />
+                <#elseif _industries.items?has_content && _industries.items?is_hash>
+                        <#if _industries.items?children?has_content>
+                                <#assign itemList = _industries.items?children />
+                        </#if>
+                </#elseif>
+                <#if itemList?size == 0>
+                        <#assign tmp = [] />
+                        <#list _industries?children as ch>
+                                <#if ch.@name?starts_with('items')>
+                                        <#assign tmp += [ch] />
+                                </#if>
+                        </#list>
+                        <#if tmp?size gt 0>
+                                <#assign itemList = tmp />
+                        </#if>
+                </#if>
+        </#if>
 	<section class="industries" aria-label="Industries overview">
 		<hgroup>
 			<p class="industries__tag">${_tag}</p>
